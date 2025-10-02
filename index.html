@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>little-lotte — The Phantom of Therapy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0b0c;            /* page background */
+      --panel:#121214;         /* hero panel edge */
+      --text:#f4f4f5;          /* body text */
+      --muted:#b6b6bc;         /* muted text */
+      --accent:#D8FF3F;        /* big headline (swap to deep red if you want) */
+      --accent-alt:#9b0d2b;    /* phantom velvet */
+      --card:#ffffff;          /* audio card bg */
+      --shadow:0 10px 30px rgba(0,0,0,.45);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;background:var(--bg);color:var(--text);
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height:1.4;
+    }
+
+    /* Header brand (top-right) */
+    header{
+      position:fixed; inset:20px 24px auto auto; z-index:20;
+      font-weight:800; letter-spacing:.02em; text-transform:uppercase;
+    }
+    header a{color:var(--accent); text-decoration:none}
+    header a:hover{opacity:.9}
+
+    /* Hero panel */
+    .hero{
+      min-height:100dvh; padding:28px;
+      display:flex; align-items:stretch; justify-content:center;
+    }
+    .hero__inner{
+      position:relative; flex:1; border-radius:var(--radius);
+      overflow:hidden; background:var(--panel);
+      max-width:1200px; width:100%;
+    }
+    .hero__bg{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(1200px 600px at 70% 60%, rgba(216,255,63,.20), transparent 60%),
+        linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.25) 35%, rgba(0,0,0,.55)),
+        url("assets/hero.jpg") center/cover no-repeat;
+      filter:saturate(1.2) contrast(1.05) brightness(.9) blur(0px);
+      will-change:transform;
+    }
+    /* Soft vignette + subtle film grain */
+    .hero__inner::after{
+      content:""; position:absolute; inset:0; pointer-events:none;
+      background:
+        radial-gradient(60% 80% at 50% 60%, rgba(0,0,0,0) 0%, rgba(0,0,0,.35) 100%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0 1px, transparent 1px 2px);
+      mix-blend-mode:multiply;
+    }
+
+    /* Content layout inside hero */
+    .hero__content{
+      position:relative; z-index:2; height:100%;
+      display:grid; grid-template-rows:1fr auto; padding:42px 44px 54px;
+    }
+
+    /* Left intro text */
+    .lede{
+      max-width:520px; margin-top:8vh;
+      font-size:clamp(16px, 1.4vw, 20px);
+    }
+    .lede p{margin:.2em 0;color:var(--text)}
+    .lede .muted{color:var(--muted)}
+
+    /* Big headline */
+    .huge{
+      margin:0; align-self:end;
+      font-family:"Playfair Display", Georgia, serif;
+      font-weight:900; line-height:.9; letter-spacing:.02em;
+      font-size:clamp(36px, 10vw, 120px);
+      text-transform:uppercase; color:var(--accent);
+      text-shadow:0 3px 0 rgba(0,0,0,.25);
+    }
+
+    /* Floating audio card (center-ish) */
+    .nowplaying{
+      position:absolute; left:50%; top:40%;
+      transform:translate(-50%,-50%);
+      display:flex; align-items:center; gap:14px;
+      background:var(--card); color:#111; padding:12px 14px;
+      border-radius:14px; box-shadow:var(--shadow);
+      width:max-content; min-width:260px;
+    }
+    .thumb{
+      width:44px; height:44px; border-radius:8px;
+      background:#ddd url("assets/cover.jpg") center/cover no-repeat;
+      box-shadow:0 2px 10px rgba(0,0,0,.18);
+    }
+    .meta{display:flex; flex-direction:column}
+    .title{font-weight:700; font-size:14.5px; line-height:1.1}
+    .sub{font-size:12px; color:#656571}
+    .play{
+      margin-left:4px; border:0; border-radius:10px; cursor:pointer;
+      width:38px; height:38px; display:grid; place-items:center;
+      background:#111; color:#fff; font-weight:700;
+    }
+    .play:focus-visible{outline:2px solid var(--accent)}
+    .badge{
+      position:absolute; right:10px; top:-22px;
+      background:#fff; color:#111; font-size:11px; font-weight:700;
+      padding:4px 8px; border-radius:999px; box-shadow:var(--shadow);
+      letter-spacing:.02em;
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 700px){
+      .nowplaying{top:48%}
+      .lede{margin-top:5vh}
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: no-preference){
+      .hero__bg{transform:scale(1.02)}
+      .hero__inner:hover .hero__bg{transform:scale(1.05)}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" aria-label="Home — little-lotte">Little Lotte</a>
+  </header>
+
+  <main class="hero">
+    <section class="hero__inner" role="region" aria-label="Homepage hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+
+      <!-- Floating 'current obsession' card -->
+      <div class="nowplaying" role="group" aria-label="Current obsession">
+        <span class="badge">Current obsession</span>
+        <div class="thumb" aria-hidden="true"></div>
+        <div class="meta">
+          <span class="title">Fast Memory</span>
+          <span class="sub">Blue Moon • 02:14</span>
+        </div>
+        <button class="play" id="playBtn" aria-pressed="false" aria-label="Play/Pause">▶</button>
+        <audio id="player" preload="none" src="audio/Gravity Looks Good on You.mp3"></audio>
+      </div>
+
+      <div class="hero__content">
+        <div class="lede">
+          <p>Independent. Unfiltered. Unforgettable.</p>
+          <p class="muted">A lyrical scrapbook where music meets story — and highlights reveal the parts you can’t unhear.</p>
+        </div>
+        <h1 class="huge">THE PHANTOM OF THERAPY</h1>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Tiny play/pause logic – no libraries.
+    const btn = document.getElementById('playBtn');
+    const player = document.getElementById('player');
+    btn.addEventListener('click', () => {
+      if (player.paused) { player.play(); btn.textContent = '❚❚'; btn.setAttribute('aria-pressed','true'); }
+      else { player.pause(); btn.textContent = '▶'; btn.setAttribute('aria-pressed','false'); }
+    });
+    // Pause icon reset when track ends
+    player.addEventListener('ended', () => { btn.textContent = '▶'; btn.setAttribute('aria-pressed','false'); });
+  </script>
+</body>
+</html>
