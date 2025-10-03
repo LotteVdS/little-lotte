@@ -75,14 +75,19 @@
       gap:28px;
     }
     .intro{
-      display:flex; flex-direction:column; gap:8px;
-      max-width:1680px;
+      position:relative; display:flex; flex-direction:column; gap:18px;
+      max-width:1680px; padding:clamp(32px, 6vw, 72px);
+      background:linear-gradient(135deg, rgba(11,11,12,.82), rgba(11,11,12,.55)), url('assets/hero.jpeg') center/cover no-repeat;
+      border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;
+      isolation:isolate;
     }
+    .intro::before{content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35)); mix-blend-mode:multiply;}
+    .intro *{position:relative; z-index:1;}
     .intro h1{
       margin:0; font-size:clamp(1.5rem,4.5vw,4.5rem); font-family:'RupturedSans', sans-serif; font-weight:400;
-      text-transform:uppercase; letter-spacing:.05em; color:var(--accent);
+      text-transform:uppercase; letter-spacing:.05em; color:var(--accent); text-shadow:0 16px 40px rgba(0,0,0,.55);
     }
-    .intro p{margin:0; color:var(--muted); font-size:15px; letter-spacing:.01em;}
+    .intro p{margin:0; color:rgba(255,255,255,.72); font-size:15px; letter-spacing:.01em;}
 
     .songs-layout{
       display:grid;
