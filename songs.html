@@ -1,0 +1,1089 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Phantom of Therapy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/rupturedsans" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0b0c;
+      --panel:#121214;
+      --panel-soft:#151518;
+      --text:#f4f4f5;
+      --muted:#b6b6bc;
+      --accent:#8dd3c6;
+      --card:#1b1b1f;
+      --card-soft:#1f1f24;
+      --shadow:0 16px 48px rgba(0,0,0,.45);
+      --radius:20px;
+      --edge:clamp(24px, 6vw, 120px);
+      --btn-bg:rgba(255,255,255,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height:1.45;
+    padding-bottom:180px;}
+
+    header{
+      position:fixed; inset:0 0 auto 0; z-index:20;
+      background:#000;
+      font-weight:800; letter-spacing:.02em; text-transform:uppercase;
+    }
+    .header__inner{
+      max-width:1200px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:32px; padding:22px 32px;
+    }
+    .brand{
+      color:var(--accent); text-decoration:none;
+      font-size:26px; letter-spacing:.08em;
+      font-family:"Special Gothic Expanded One", sans-serif;
+    }
+    .brand:hover{opacity:.9}
+    nav ul{list-style:none; margin:0; padding:0; display:flex; gap:28px; align-items:center;}
+    .nav__link{
+      color:var(--muted); text-decoration:none; font-size:15px; font-weight:600;
+      letter-spacing:.04em; transition:color .2s ease;
+    }
+    .nav__link:hover{color:var(--text)}
+    .nav__link.is-active{color:var(--accent)}
+    .nav__actions{display:flex; gap:18px; align-items:center;}
+    .icon-btn{
+      border:0; background:none; color:var(--text); padding:6px;
+      display:grid; place-items:center; cursor:pointer;
+    }
+    .icon-btn:hover{color:var(--accent)}
+    .icon-btn svg{width:18px; height:18px; fill:currentColor}
+
+    main{
+      padding:140px var(--edge) 80px;
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      flex-direction:column;
+      gap:28px;
+    }
+    .intro{
+      display:flex; flex-direction:column; gap:8px;
+      max-width:1680px;
+    }
+    .intro h1{
+      margin:0; font-size:clamp(1.5rem,4.5vw,4.5rem); font-family:'RupturedSans', sans-serif; font-weight:400;
+      text-transform:uppercase; letter-spacing:.05em; color:var(--accent);
+    }
+    .intro p{margin:0; color:var(--muted); font-size:15px; letter-spacing:.01em;}
+
+    .songs-layout{
+      display:grid;
+      gap:24px;
+      grid-template-columns:1fr;
+      align-items:start;
+      transition:grid-template-columns .35s ease;
+    }
+    .songs-layout[data-view="song"]{
+      grid-template-columns:minmax(280px, .95fr) minmax(360px, 1.05fr);
+    }
+    .songs-layout[data-view="annotation"]{
+      grid-template-columns:minmax(240px, 1fr) minmax(320px, 1.4fr) minmax(320px, 1.2fr);
+    }
+
+    .library{
+      background:var(--panel);
+      border-radius:var(--radius);
+      padding:32px 28px;
+      box-shadow:var(--shadow);
+      display:flex; flex-direction:column; gap:28px;
+    }
+    .album{
+      display:flex; flex-direction:column; gap:20px;
+      padding-bottom:28px; border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .album:last-of-type{border-bottom:0; padding-bottom:0;}
+    .album__header{display:flex; gap:18px; align-items:center;}
+    .album__cover{
+      flex:0 0 90px; height:90px;
+      border-radius:18px; overflow:hidden;
+      background:var(--card-soft);
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.05);
+    }
+    .album__cover img{width:100%; height:100%; object-fit:cover; display:block;}
+    .album__info{display:flex; flex-direction:column; gap:6px;}
+    .album__subtitle{margin:0; font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.45);}
+    .album__title{margin:0; font-size:18px; text-transform:uppercase; letter-spacing:.08em;}\r\n    .album__description{margin:6px 0 0; color:var(--muted); font-size:14px; line-height:1.6;}
+    .album__controls{margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;}
+    .album__controls[aria-disabled="true"]{opacity:.45; pointer-events:none;}
+
+    .control-btn{
+      border:0; border-radius:12px; padding:8px 14px;
+      background:var(--btn-bg); color:var(--text);
+      font-weight:600; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+      cursor:pointer; transition:background .2s ease, color .2s ease, transform .2s ease;
+    }
+    .control-btn:hover{background:rgba(255,255,255,.14);}
+    .control-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+    .control-btn[aria-pressed="true"], .control-btn.is-active{background:var(--accent); color:#0b0b0c;}
+    .control-btn[disabled]{opacity:.4; cursor:not-allowed;}
+
+    .album__songs{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px;}
+
+    .song-btn{
+      width:100%; border:0; background:var(--card-soft);
+      color:var(--text);
+      padding:14px 16px; border-radius:14px;
+      text-align:left; font-size:15px; font-weight:600;
+      letter-spacing:.01em; cursor:pointer; transition:background .2s ease, transform .2s ease, color .2s ease;
+      display:flex; justify-content:space-between; align-items:center; gap:12px;
+    }
+    .song-btn span{font-size:12px; color:var(--muted); font-weight:500; letter-spacing:.04em;}
+    .song-btn:hover{background:var(--card); transform:translateX(2px);}
+    .song-btn.is-active{background:var(--accent); color:#0b0b0c;}
+    .song-btn.is-active span{color:#0b0b0c;}
+    .song-btn.is-muted{opacity:.55;}
+
+    .songs__detail,
+    .songs__annotations{
+      background:var(--panel-soft);
+      border-radius:var(--radius);
+      padding:32px;
+      box-shadow:var(--shadow);
+      display:flex;
+      flex-direction:column;
+      gap:24px;
+    }
+    .songs__detail{display:none;}
+    .songs__annotations{display:none; position:relative;}
+    .songs-layout[data-view="song"] .songs__detail,
+    .songs-layout[data-view="annotation"] .songs__detail{display:flex;}
+    .songs-layout[data-view="annotation"] .songs__annotations{display:flex;}
+
+    .detail__header{display:flex; align-items:flex-start; justify-content:space-between; gap:18px;}
+    .detail__eyebrow{margin:0; font-size:12px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase;}
+    .detail__title{margin:4px 0 0; font-size:32px; font-family: "Special Gothic Expanded One", sans-serif; letter-spacing:.04em; text-transform:uppercase; font-weight:400;}
+    .detail__close{
+      border:0; background:var(--btn-bg); color:var(--text);
+      border-radius:12px; padding:8px 16px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+      cursor:pointer; font-size:11px;
+    }
+    .detail__close:hover{background:rgba(255,255,255,.14);}
+
+    .detail__grid{display:grid; grid-template-columns:minmax(160px,220px) minmax(0,1fr); gap:22px; align-items:start;}
+    .detail__art{margin:0; position:relative; overflow:hidden; border-radius:18px; background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(0,0,0,.6));}
+    .detail__art img{width:100%; display:block; object-fit:cover; border-radius:inherit; min-height:200px;}
+    .detail__meta{margin:0; display:grid; gap:12px; font-size:14px; letter-spacing:.02em; color:var(--muted);}
+    .detail__meta div{display:grid; gap:4px;}
+    .detail__meta dt{font-size:11px; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.12em;}
+    .detail__meta dd{margin:0; color:var(--text); font-weight:600;}
+
+    .detail__origin,
+    .detail__lyrics{display:flex; flex-direction:column; gap:14px; padding-top:12px; border-top:1px solid rgba(255,255,255,.08);}
+    .detail__origin h3,
+    .detail__lyrics h3{margin:0; font-size:14px; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.55);}
+    .detail__origin p{margin:0; color:var(--muted); font-size:14px; line-height:1.6;}
+
+    .lyric-line{margin:0; font-size:15px; color:rgba(244,244,245,.92); line-height:1.7; white-space:pre-wrap;}
+    .lyric-line span{white-space:pre-wrap;}
+    .lyric__highlight{
+      border:0; background:rgba(141,211,198,.18);
+      color:var(--accent); font-weight:700; letter-spacing:.03em;
+      border-radius:8px; padding:2px 6px; cursor:pointer;
+      transition:background .2s ease, color .2s ease;
+    }
+    .lyric__highlight:hover{background:rgba(141,211,198,.28);}
+    .lyric__highlight.is-active{background:var(--accent); color:#0b0b0c;}
+
+    .annotation__header{display:flex; justify-content:space-between; align-items:flex-start; gap:18px;}
+    .annotation__title{margin:0; font-size:18px; font-family: "Special Gothic Expanded One", sans-serif; text-transform:uppercase; letter-spacing:.05em; font-weight:400;}
+    .annotation__body{margin:0; font-size:14px; color:var(--muted); line-height:1.6; white-space:pre-wrap;}
+
+        .player-bar{position:sticky; bottom:24px; z-index:30; margin:40px auto 0; max-width:1200px; width:calc(100% - (var(--edge) * 2)); background:var(--panel); border-radius:22px; padding:18px clamp(18px, 6vw, 32px); box-shadow:var(--shadow); display:flex; flex-direction:column; gap:16px; backdrop-filter:blur(12px);}
+    .player-bar[hidden]{display:none;}
+    .player-bar__row{display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;}
+    .player-bar__track{display:flex; align-items:center; gap:16px; min-width:200px;}
+    .player-bar__art{width:54px; height:54px; border-radius:14px; overflow:hidden; background:var(--card-soft); flex-shrink:0;}
+    .player-bar__art img{width:100%; height:100%; object-fit:cover; display:block;}
+    .player-bar__meta{display:flex; flex-direction:column; gap:4px;}
+    .player-bar__title{margin:0; font-weight:700; font-size:15px; letter-spacing:.03em;}
+    .player-bar__album{margin:0; font-size:12px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase;}
+    .player-bar__controls{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+    .player-bar__timeline{display:flex; align-items:center; gap:12px;}
+    .player-bar__time{font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; min-width:34px; text-align:center;}
+    .player-bar__seek{flex:1; appearance:none; height:5px; background:rgba(255,255,255,.18); border-radius:999px; outline:none; cursor:pointer; position:relative;}
+    .player-bar__seek::-webkit-slider-thumb{appearance:none; width:14px; height:14px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px rgba(141,211,198,.25);}
+    .player-bar__seek::-moz-range-thumb{width:14px; height:14px; border-radius:50%; background:var(--accent); border:0; box-shadow:0 0 0 4px rgba(141,211,198,.25);}
+    .player-bar__seek::-webkit-slider-runnable-track{height:5px; border-radius:999px; background:rgba(255,255,255,.22);}
+    .player-bar__seek::-moz-range-track{height:5px; border-radius:999px; background:rgba(255,255,255,.22);}
+    .control-btn.is-toggled{background:var(--accent); color:#0b0b0c;}
+    .control-btn[data-repeat-mode="album"],
+    .control-btn[data-repeat-mode="song"]{position:relative;}
+    .control-btn[data-repeat-mode="song"]::after{content:'1'; position:absolute; top:6px; right:10px; font-size:10px; font-weight:700;}
+    @media (max-width:1024px){
+      main{padding:132px clamp(20px,6vw,60px) 72px;}
+    }
+    @media (max-width:900px){.player-bar{width:calc(100% - clamp(32px, 12vw, 80px)); margin:32px auto 0;}
+      .songs-layout,
+      .songs-layout[data-view="song"],
+      .songs-layout[data-view="annotation"]{grid-template-columns:1fr;}
+      .songs__annotations{order:3;}
+      .detail__grid{grid-template-columns:1fr;}
+    }
+    @media (max-width:760px){.player-bar{bottom:16px; width:calc(100% - 32px); padding:16px 18px;}
+      nav{display:none;}
+      .header__inner{padding:18px 20px;}
+      .album__header{flex-direction:column; align-items:flex-start;}
+      .album__cover{width:100%; height:180px;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header__inner">
+      <a class="brand" href="index.html" aria-label="Home - little-lotte">Little  Lotte</a>
+      <nav aria-label="Primary navigation">
+        <ul>
+          <li><a class="nav__link" href="index.html">Home</a></li>
+          <li><a class="nav__link" href="#">About</a></li>
+          <li><a class="nav__link is-active" href="songs.html">Songs</a></li>
+        </ul>
+      </nav>
+      <div class="nav__actions">
+        <button class="icon-btn" type="button" aria-label="Search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.71.71l.27.28v.79l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" aria-label="Songs introduction">
+      <h1>Say you'll share with me</h1>
+      <p>Select a track to dive into artwork, credits, and lyric annotations.</p>
+    </section>
+
+    <section class="songs-layout" id="songsLayout" data-view="list">
+      <aside class="library" aria-label="Albums and songs">
+          <article class="album" data-album="out-of-touch" data-cover="assets/out of touch cover art.png">
+          <div class="album__header">
+            <figure class="album__cover">
+              <img src="assets/out of touch cover art.png" alt="Out of Touch album cover" loading="lazy" />
+            </figure>
+            <div class="album__info">
+              <p class="album__subtitle">2025 &middot; Concept release</p>
+              <h3 class="album__title">Out of Touch</h3>
+              <p class="album__description">Each track teases apart a coping pattern, pairing theatrical drama with glitchy pop textures.</p>
+              <div class="album__controls" role="group" aria-label="Out of Touch playback controls">
+                <button class="control-btn" type="button" data-album-play aria-pressed="false">Play</button>
+                <button class="control-btn" type="button" data-album-next>Next</button>
+              </div>
+            </div>
+          </div>
+          <ul class="album__songs">
+            <li><button class="song-btn" type="button" data-song-id="split-the-blame" aria-pressed="false">Split The Blame (The Cognitive Dissonance) <span>03:57</span></button></li>
+            <li><button class="song-btn" type="button" data-song-id="if-then-else" aria-pressed="false">If/Then/Else (The Overthinking) <span>02:31</span></button></li>
+            <li><button class="song-btn" type="button" data-song-id="let-me-stay" aria-pressed="false">Let Me Stay (The Anxious Attachment) <span>03:52</span></button></li>
+            <li><button class="song-btn" type="button" data-song-id="wired-this-way" aria-pressed="false">Wired This Way (The Fourth Trauma Response) <span>03:57</span></button></li>
+            <li><button class="song-btn" type="button" data-song-id="girl-math" aria-pressed="false">Girl Math (The Inner Critic) <span>01:58</span></button></li>
+            <li><button class="song-btn" type="button" data-song-id="safety-net" aria-pressed="false">Safety Net (The Disorganized Attachment) <span>03:16</span></button></li>
+            <li><button class="song-btn" type="button" data-song-id="sad-girl-syntax-y" aria-pressed="false">Sad Girl Syntax (The Emotional Dissonance - yellow version) <span>03:45</span></button></li>
+            <li><button class="song-btn" type="button" data-song-id="sad-girl-syntax-b" aria-pressed="false">Sad Girl Syntax (The Emotional Dissonance - blue version) <span>03:33</span></button></li>
+            <li><button class="song-btn" type="button" data-song-id="you-could-have" aria-pressed="false">You Could've (The Externally Oriented Motivation) <span>02:59</span></button></li>
+            <li><button class="song-btn" type="button" data-song-id="does-not-count" aria-pressed="false">Doesn't Count (If It's For Me) (The Externally Oriented Motivation) <span>03:21</span></button></li>
+            <li><button class="song-btn" type="button" data-song-id="done-with-me" aria-pressed="false">Done With Me (The Agency) <span>03:25</span></button></li>
+          </ul>
+        </article>
+
+      </aside>
+
+      <section class="songs__detail" aria-live="polite" aria-label="Song details" hidden>
+        <div class="detail__header">
+          <div>
+            <p class="detail__eyebrow">Album &mdash; <span data-song-album>&mdash;</span></p>
+            <h2 class="detail__title" data-song-title>Select a song</h2>
+          </div>
+          <button class="detail__close" type="button" data-close-song>Close</button>
+        </div>
+
+        <div class="detail__grid">
+          <figure class="detail__art">
+            <img src="assets/hero.jpeg" alt="" data-song-image />
+          </figure>
+          <div class="detail__info">
+                        <dl class="detail__meta">
+              <div>
+                <dt>Produced</dt>
+                <dd data-song-meta="produced">&mdash;</dd>
+              </div>
+              <div>
+                <dt>Duration</dt>
+                <dd data-song-meta="duration">&mdash;</dd>
+              </div>
+              <div>
+                <dt>Inspiration</dt>
+                <dd data-song-meta="inspiration">&mdash;</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <section class="detail__origin" aria-label="Song origin">
+          <h3>Origin</h3>
+          <p data-song-origin>Select a track to uncover how it came to life.</p>
+        </section>
+
+        <section class="detail__lyrics" aria-label="Lyrics">
+          <h3>Lyrics</h3>
+          <div data-song-lyrics>
+            <p class="lyric-line">Lyrics appear once a song is selected.</p>
+          </div>
+        </section>
+      </section>
+
+      <aside class="songs__annotations" aria-live="polite" aria-label="Lyric annotations" hidden>
+        <div class="annotation__header">
+          <h3 class="annotation__title" data-annotation-title>Lyric notes</h3>
+          <button class="control-btn" type="button" data-close-annotation>Close</button>
+        </div>
+        <p class="annotation__body" data-annotation-body>Click a highlighted lyric to reveal production notes, character insights, or director commentary.</p>
+      </aside>
+    </section>
+  </main>
+  <div class="player-bar" id="playerBar" hidden>
+    <div class="player-bar__row">
+      <div class="player-bar__track">
+        <div class="player-bar__art">
+          <img src="assets/hero.jpeg" alt="" data-player-art />
+        </div>
+        <div class="player-bar__meta">
+          <p class="player-bar__title" data-player-title>Select a song</p>
+          <p class="player-bar__album" data-player-album>Album &mdash;</p>
+        </div>
+      </div>
+      <div class="player-bar__controls" role="group" aria-label="Playback controls">
+        <button class="control-btn" type="button" data-shuffle aria-pressed="false" aria-label="Toggle shuffle"><span aria-hidden="true">⤮</span></button>
+        <button class="control-btn" type="button" data-player-play aria-pressed="false">Play</button>
+        <button class="control-btn" type="button" data-player-next>Next</button>
+        <button class="control-btn" type="button" data-repeat aria-label="Repeat off" data-repeat-mode="off"><span aria-hidden="true">⟲</span></button>
+      </div>
+    </div>
+    <div class="player-bar__timeline">
+      <span class="player-bar__time" data-player-current>0:00</span>
+      <input class="player-bar__seek" type="range" min="0" step="1" value="0" data-player-seek />
+      <span class="player-bar__time" data-player-duration>0:00</span>
+    </div>
+  </div>
+
+    <script>
+    const SONG_DATA = {
+      "split-the-blame": {
+        title: "Split The Blame",
+        albumId: "out-of-touch",
+        album: "Out of Touch",
+        produced: "10 May 2025",
+        duration: "03:57",
+        inspiration: "Witchy chaos with a twist like Last Midnight, Mother Knows Best, and Poor Unfortunate Souls.",
+        origin: "I started brainstorming 'villain' voices not as literal enemies, but as personifications of inner psychological patterns. My villain here was the way I overcorrect and rationalize harmful behavior to keep people 'good.' It birthed this voice that sounds logical and reasonable, but with a twist.",
+        image: "assets/split the blame cover art.png",
+        audio: "audio/Split the Blame (The Cognitive Dissonance).mp3",
+        lyrics: [
+          [ { text: "[Verse 1]" } ],
+          [ { text: "You're being unfair. You know he meant well." } ],
+          [ { text: "People make mistakes — " }, { text: "you do too, can't you tell?", highlight: true, annotationId: "openingline" } ],
+          [ { text: "It's not black and white. You know that by now." } ],
+          [ { text: "So don't call it hurt — it's just learning how." } ],
+          [ { text: "You're not a child, you know. You've always seen the grey..." } ],
+          [ { text: "Don't let those tender feelings get in your logic's way." } ],
+          [ { text: "[Chorus]" } ],
+          [ { text: "Split the blame", highlight: true, annotationId: "mantra" }, { text: " — he didn't mean to." } ],
+          [ { text: "You were too much. He was too tired." } ],
+          [ { text: "Both of you flawed, both of you fired shots you didn't mean to aim..." } ],
+          [ { text: "Split the blame. That's what kind people do. Don't make this all about you." } ],
+          [ { text: "[Verse 2]" } ],
+          [ { text: "Remember his laugh? The way he held you tight?" } ],
+          [ { text: "Good people don't become monsters just 'cause they didn't act right." } ],
+          [ { text: "You know you forgive too fast. But isn't that your gift?" } ],
+          [ { text: "Compassion is a skill, my dear — and anger's just a rift." } ],
+          [ { text: "[Bridge]" } ],
+          [ { text: "Shhh. Don't ask what you wanted. That's selfish, don't you see?" } ],
+          [ { text: "You always were the steady one. Don't go rewriting history..." } ],
+          [ { text: "[Chorus 2]" } ],
+          [ { text: "Split the blame — you were confusing. You were too cold. He was too proud." } ],
+          [ { text: "Both of you lost in a moment too loud." } ],
+          [ { text: "Let go of the need to name who did what, who broke it, who's to blame..." } ],
+          [ { text: "[Breakdown]" } ],
+          [ { text: "You're too wise to hate him. Too good to keep score." } ],
+          [ { text: "You choose to understand him — so why do you want more?" } ],
+          [ { text: "You want to be right? You want to be loved? You think the two can live side by side?!" } ],
+          [ { text: "Then you don't know love at all.", highlight: true, annotationId: "fallingmasks" } ],
+          [ { text: "[Final Refrain]" } ],
+          [ { text: "Split the blame — you're not a victim. You let it happen. You watched it break." } ],
+          [ { text: "Don't look for truth now — you gave it away the moment you bit your tongue in shame..." } ],
+          [ { text: "So take the shame. Take your silence. Take your part." } ],
+          [ { text: "Take the blame.", highlight: true, annotationId: "twist" } ]
+        ],
+        annotations: {
+          mantra: {
+            title: "Mantra of minimising",
+            body: "The internal script that keeps insisting you soften every blow. We looped the mantra under the chorus like a warning siren."
+          },
+          openingline: {
+            title: "Trustworthy on purpose",
+            body: "Those first bars sound reasonable so the villain earns your trust. The logic is the trap."
+          },
+          fallingmasks: {
+            title: "Masks dropping",
+            body: "Here the polite voice finally snaps. It's the moment the manipulation stops hiding behind kindness."
+          },
+          twist: {
+            title: "The final surrender",
+            body: "Ending on 'Take the blame' felt cruel and honest. The villain wins when you carry the whole mess alone."
+          }
+        }
+      },
+      "if-then-else": {
+        title: "If/Then/Else",
+        albumId: "out-of-touch",
+        album: "Out of Touch",
+        produced: "Tracked between insomnia and coffee refills",
+        duration: "02:31",
+        inspiration: "Late-night spirals that turn feelings into broken logic trees.",
+        origin: "Built from phone notes of every conditional thought that kept me awake. I sang it in one take just to outrun the loop.",
+        image: "assets/out of touch cover art.png",
+        audio: "audio/If Then Else (The Overthinking).mp3",
+        lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
+        annotations: {}
+      },
+      "let-me-stay": {
+        title: "Let Me Stay",
+        albumId: "out-of-touch",
+        album: "Out of Touch",
+        produced: "Recorded in the softest reverb our engineer owns",
+        duration: "03:52",
+        inspiration: "Clinging to connection even when the room says leave.",
+        origin: "I wrote this after a therapy session about anxious attachment. We tracked the vocal at 2 a.m. to keep the hush.",
+        image: "assets/out of touch cover art.png",
+        audio: "audio/Let Me Stay (The Anxious Attachment).mp3",
+        lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
+        annotations: {}
+      },
+      "wired-this-way": {
+        title: "Wired This Way",
+        albumId: "out-of-touch",
+        album: "Out of Touch",
+        produced: "Snapped live with a wall of modular synths",
+        duration: "03:57",
+        inspiration: "Fight-flight-freeze-fawn put through glitch pedals.",
+        origin: "I pitched the chorus down an octave to mimic dissociation, then let the bridge crack back to my real voice.",
+        image: "assets/out of touch cover art.png",
+        audio: "audio/Wired This Way (The Fourth Trauma Response).mp3",
+        lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
+        annotations: {}
+      },
+      "girl-math": {
+        title: "Girl Math",
+        albumId: "out-of-touch",
+        album: "Out of Touch",
+        produced: "Kitchen-table claps, bedroom synths",
+        duration: "01:58",
+        inspiration: "Every creative way I justified the bare minimum.",
+        origin: "We built the groove from calculator button clicks. The hook is me laughing at myself, then wincing.",
+        image: "assets/out of touch cover art.png",
+        audio: "audio/Girl Math (The Inner Critic).mp3",
+        lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
+        annotations: {}
+      },
+      "safety-net": {
+        title: "Safety Net",
+        albumId: "out-of-touch",
+        album: "Out of Touch",
+        produced: "Strings recorded in an empty theatre",
+        duration: "03:16",
+        inspiration: "Loving someone while bracing for the fall at the same time.",
+        origin: "I sampled the hum of stage lights for the intro. It sounds like comfort and warning all at once.",
+        image: "assets/out of touch cover art.png",
+        audio: "audio/Safety Net (The Disorganized Attachment).mp3",
+        lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
+        annotations: {}
+      },
+      "sad-girl-syntax-y": {
+        title: "Sad Girl Syntax (Yellow)",
+        albumId: "out-of-touch",
+        album: "Out of Touch",
+        produced: "A synth rebuilt from obsolete parts",
+        duration: "03:45",
+        inspiration: "Color theory as emotional logic.",
+        origin: "Yellow is the performance version of sadness. I painted the studio lights gold and sang until it felt bright.",
+        image: "assets/out of touch cover art.png",
+        audio: "audio/Sad Girl Syntax (The Emotional Dissonance - yellow version).mp3",
+        lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
+        annotations: {}
+      },
+      "sad-girl-syntax-b": {
+        title: "Sad Girl Syntax (Blue)",
+        albumId: "out-of-touch",
+        album: "Out of Touch",
+        produced: "Tracked in a single take with midnight reverb",
+        duration: "03:33",
+        inspiration: "The quieter version of the same ache.",
+        origin: "I removed every high-hat until the track felt like breathing underwater.",
+        image: "assets/out of touch cover art.png",
+        audio: "audio/Sad Girl Syntax (The Emotional Dissonance - blue version).mp3",
+        lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
+        annotations: {}
+      },
+      "you-could-have": {
+        title: "You Could've",
+        albumId: "out-of-touch",
+        album: "Out of Touch",
+        produced: "Slammed drums and a choir of exasperated friends",
+        duration: "02:59",
+        inspiration: "Outrage that finally points outward.",
+        origin: "We stacked 18 vocals shouting the word 'could' until it broke. Catharsis in surround sound.",
+        image: "assets/out of touch cover art.png",
+        audio: "audio/You Could've (The Externally Oriented Motivation).mp3",
+        lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
+        annotations: {}
+      },
+      "does-not-count": {
+        title: "Doesn't Count (If It's For Me)",
+        albumId: "out-of-touch",
+        album: "Out of Touch",
+        produced: "Bedroom choir stacked with whispered doubles",
+        duration: "03:21",
+        inspiration: "Every excuse I made for burning out.",
+        origin: "The verses came from my to-do list. I left the typos in the background vocals on purpose.",
+        image: "assets/out of touch cover art.png",
+        audio: "audio/Doesn't Count (If It's For Me) (The Externally Oriented Motivation).mp3",
+        lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
+        annotations: {}
+      },
+      "done-with-me": {
+        title: "Done With Me",
+        albumId: "out-of-touch",
+        album: "Out of Touch",
+        produced: "Taped live with a single ribbon mic",
+        duration: "03:25",
+        inspiration: "That rare moment where I stopped apologising.",
+        origin: "We let the bridge drop to spoken word, then built it back up with handclaps from everyone in the room.",
+        image: "assets/out of touch cover art.png",
+        audio: "audio/Done With Me (The Agency).mp3",
+        lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
+        annotations: {}
+      }
+    };
+
+    const layout = document.getElementById('songsLayout');
+    const detailPane = document.querySelector('.songs__detail');
+    const annotationPane = document.querySelector('.songs__annotations');
+    const detailTitle = detailPane.querySelector('[data-song-title]');
+    const detailAlbum = detailPane.querySelector('[data-song-album]');
+    const detailImage = detailPane.querySelector('[data-song-image]');
+    const detailProduced = detailPane.querySelector('[data-song-meta="produced"]');
+    const detailDuration = detailPane.querySelector('[data-song-meta="duration"]');
+    const detailInspiration = detailPane.querySelector('[data-song-meta="inspiration"]');
+    const detailOrigin = detailPane.querySelector('[data-song-origin]');
+    const lyricContainer = detailPane.querySelector('[data-song-lyrics]');
+    const detailClose = detailPane.querySelector('[data-close-song]');
+    const annotationTitle = annotationPane.querySelector('[data-annotation-title]');
+    const annotationBody = annotationPane.querySelector('[data-annotation-body]');
+    const annotationClose = annotationPane.querySelector('[data-close-annotation]');
+    const songButtons = Array.from(document.querySelectorAll('.song-btn'));
+    const albumElements = Array.from(document.querySelectorAll('.album'));
+
+    const playerBar = document.getElementById('playerBar');
+    const playerArt = playerBar.querySelector('[data-player-art]');
+    const playerTitle = playerBar.querySelector('[data-player-title]');
+    const playerAlbumLabel = playerBar.querySelector('[data-player-album]');
+    const playerPlayBtn = playerBar.querySelector('[data-player-play]');
+    const playerNextBtn = playerBar.querySelector('[data-player-next]');
+    const shuffleBtn = playerBar.querySelector('[data-shuffle]');
+    const repeatBtn = playerBar.querySelector('[data-repeat]');
+    const playerSeek = playerBar.querySelector('[data-player-seek]');
+    const playerCurrentTime = playerBar.querySelector('[data-player-current]');
+    const playerDurationTime = playerBar.querySelector('[data-player-duration]');
+    const audioPlayer = new Audio();
+    audioPlayer.preload = 'metadata';
+
+    const albumSongMap = new Map();
+    albumElements.forEach(albumEl => {
+      const albumId = albumEl.dataset.album;
+      const ids = Array.from(albumEl.querySelectorAll('.song-btn')).map(btn => {
+        btn.dataset.albumId = albumId;
+        return btn.dataset.songId;
+      });
+      albumSongMap.set(albumId, ids);
+    });
+
+    const playbackState = {
+      currentSongId: null,
+      currentAlbumId: null,
+      repeatMode: 'off',
+      shuffle: false,
+      isPlaying: false,
+      annotationId: null
+    };
+
+    let isSeeking = false;
+
+    function formatTime(value){
+      const seconds = Math.max(0, Math.floor(value || 0));
+      const mins = Math.floor(seconds / 60);
+      const secs = String(seconds % 60).padStart(2, '0');
+      return `${mins}:${secs}`;
+    }
+
+    function parseDurationString(duration){
+      if(!duration){
+        return NaN;
+      }
+      const parts = duration.split(':').map(Number);
+      if(parts.length === 2 && parts.every(n => Number.isFinite(n))){
+        return parts[0] * 60 + parts[1];
+      }
+      return Number(duration);
+    }
+
+    function updatePlayerMeta(song){
+      if(!song){
+        return;
+      }
+      playerTitle.textContent = song.title;
+      playerAlbumLabel.textContent = song.album || '—';
+      playerArt.src = song.image || 'assets/hero.jpeg';
+      playerArt.alt = song.title + ' artwork';
+      const parsed = parseDurationString(song.duration);
+      if(Number.isFinite(parsed)){
+        playerSeek.max = parsed;
+        playerDurationTime.textContent = formatTime(parsed);
+      }
+      if(!playbackState.isPlaying){
+        playerSeek.value = 0;
+        playerCurrentTime.textContent = '0:00';
+      }
+      playerBar.hidden = false;
+    }
+
+    function renderLyrics(song){
+      lyricContainer.innerHTML = '';
+      song.lyrics.forEach(line => {
+        const p = document.createElement('p');
+        p.className = 'lyric-line';
+        line.forEach(segment => {
+          if(segment.highlight){
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'lyric__highlight';
+            btn.dataset.annotationId = segment.annotationId;
+            btn.textContent = segment.text;
+            btn.addEventListener('click', () => handleHighlightClick(song, segment.annotationId, btn));
+            p.appendChild(btn);
+          } else {
+            const span = document.createElement('span');
+            span.textContent = segment.text;
+            p.appendChild(span);
+          }
+        });
+        lyricContainer.appendChild(p);
+      });
+    }
+
+    function handleHighlightClick(song, annotationId, button){
+      const note = song.annotations?.[annotationId];
+      if(!note){
+        return;
+      }
+      const isSame = playbackState.annotationId === annotationId && !annotationPane.hidden;
+      lyricContainer.querySelectorAll('.lyric__highlight').forEach(el => {
+        el.classList.toggle('is-active', el === button && !isSame);
+      });
+      if(isSame){
+        closeAnnotation();
+        return;
+      }
+      annotationTitle.textContent = note.title;
+      annotationBody.textContent = note.body;
+      annotationPane.hidden = false;
+      layout.dataset.view = 'annotation';
+      playbackState.annotationId = annotationId;
+    }
+
+    function getSong(songId){
+      return SONG_DATA[songId];
+    }
+
+    function selectSong(songId, sourceButton, options = {}){
+      const song = getSong(songId);
+      if(!song){
+        return;
+      }
+      playbackState.annotationId = null;
+      lyricContainer.querySelectorAll('.lyric__highlight').forEach(el => el.classList.remove('is-active'));
+
+      playbackState.currentSongId = songId;
+      playbackState.currentAlbumId = song.albumId || sourceButton?.dataset.albumId || null;
+
+      songButtons.forEach(btn => {
+        const isActive = btn.dataset.songId === songId;
+        btn.classList.toggle('is-active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+
+      detailTitle.textContent = song.title;
+      detailAlbum.textContent = song.album || '—';
+      detailImage.src = song.image || 'assets/hero.jpeg';
+      detailImage.alt = song.title + ' artwork';
+      detailProduced.textContent = song.produced || '—';
+      detailDuration.textContent = song.duration || '—';
+      detailInspiration.textContent = song.inspiration || '—';
+      detailOrigin.textContent = song.origin || 'Origin coming soon.';
+      updatePlayerMeta(song);
+      playerSeek.value = 0;
+      playerCurrentTime.textContent = '0:00';
+      renderLyrics(song);
+      annotationPane.hidden = true;
+      layout.dataset.view = 'song';
+      detailPane.hidden = false;
+
+      if(options.shouldPlay){
+        startPlayback(songId);
+      } else {
+        playbackState.isPlaying = false;
+        updatePlaybackUi();
+      }
+    }
+
+    function startPlayback(songId){
+      const song = getSong(songId);
+      if(!song){
+        return;
+      }
+      if(!song.audio){
+        pausePlayback();
+        return;
+      }
+      audioPlayer.src = song.audio;
+      audioPlayer.currentTime = 0;
+      const parsed = parseDurationString(song.duration);
+      if(Number.isFinite(parsed)){
+        playerSeek.max = parsed;
+        playerDurationTime.textContent = formatTime(parsed);
+      }
+      audioPlayer.play().then(() => {
+        playbackState.isPlaying = true;
+        updatePlaybackUi();
+      }).catch(() => {
+        playbackState.isPlaying = false;
+        updatePlaybackUi();
+      });
+    }
+
+    function pausePlayback(){
+      audioPlayer.pause();
+      playbackState.isPlaying = false;
+      updatePlaybackUi();
+    }
+
+    function getPlayableSongs(albumId){
+      return (albumSongMap.get(albumId) || []).filter(id => SONG_DATA[id]?.audio);
+    }
+
+    function playNext(){
+      const albumId = playbackState.currentAlbumId;
+      if(!albumId){
+        return;
+      }
+      const playable = getPlayableSongs(albumId);
+      if(!playable.length){
+        pausePlayback();
+        return;
+      }
+
+      let nextId = null;
+      if(playbackState.shuffle){
+        if(playable.length === 1){
+          if(playbackState.repeatMode === 'off'){
+            pausePlayback();
+            return;
+          }
+          nextId = playable[0];
+        } else {
+          const pool = playable.filter(id => id !== playbackState.currentSongId);
+          const candidates = pool.length ? pool : playable;
+          nextId = candidates[Math.floor(Math.random() * candidates.length)];
+        }
+      } else {
+        const currentIndex = playable.indexOf(playbackState.currentSongId);
+        if(currentIndex === -1){
+          nextId = playable[0];
+        } else if(currentIndex < playable.length - 1){
+          nextId = playable[currentIndex + 1];
+        } else if(playbackState.repeatMode === 'album'){
+          nextId = playable[0];
+        }
+      }
+
+      if(!nextId){
+        pausePlayback();
+        return;
+      }
+
+      const btn = songButtons.find(button => button.dataset.songId === nextId);
+      selectSong(nextId, btn, { shouldPlay: true });
+    }
+
+    function handleTrackEnd(){
+      if(playbackState.repeatMode === 'song' && playbackState.currentSongId){
+        audioPlayer.currentTime = 0;
+        audioPlayer.play();
+        return;
+      }
+      playNext();
+    }
+
+    function updatePlaybackUi(){
+      albumElements.forEach(albumEl => {
+        const albumId = albumEl.dataset.album;
+        const playBtn = albumEl.querySelector('[data-album-play]');
+        const nextBtn = albumEl.querySelector('[data-album-next]');
+        const hasAudio = (albumSongMap.get(albumId) || []).some(id => SONG_DATA[id]?.audio);
+
+        if(playBtn){
+          playBtn.disabled = !hasAudio;
+          const isCurrent = playbackState.currentAlbumId === albumId && playbackState.currentSongId;
+          playBtn.textContent = isCurrent && playbackState.isPlaying ? 'Pause' : 'Play';
+          playBtn.classList.toggle('is-active', isCurrent && playbackState.isPlaying);
+          playBtn.setAttribute('aria-pressed', isCurrent && playbackState.isPlaying ? 'true' : 'false');
+        }
+        if(nextBtn){
+          nextBtn.disabled = !hasAudio;
+        }
+      });
+
+      const hasSong = Boolean(playbackState.currentSongId);
+      playerBar.hidden = !hasSong;
+      playerPlayBtn.disabled = !hasSong;
+      playerNextBtn.disabled = !hasSong;
+      playerSeek.disabled = !hasSong;
+
+      if(!hasSong){
+        shuffleBtn.setAttribute('aria-pressed', 'false');
+        shuffleBtn.classList.remove('is-toggled');
+        repeatBtn.dataset.repeatMode = 'off';
+        repeatBtn.setAttribute('aria-label', 'Repeat off');
+        repeatBtn.classList.remove('is-toggled');
+        playerPlayBtn.textContent = 'Play';
+        playerPlayBtn.setAttribute('aria-pressed', 'false');
+        return;
+      }
+
+      playerPlayBtn.textContent = playbackState.isPlaying ? 'Pause' : 'Play';
+      playerPlayBtn.setAttribute('aria-pressed', playbackState.isPlaying ? 'true' : 'false');
+
+      shuffleBtn.setAttribute('aria-pressed', playbackState.shuffle ? 'true' : 'false');
+      shuffleBtn.classList.toggle('is-toggled', playbackState.shuffle);
+
+      repeatBtn.dataset.repeatMode = playbackState.repeatMode;
+      repeatBtn.classList.toggle('is-toggled', playbackState.repeatMode !== 'off');
+      const repeatLabels = { off: 'Repeat off', album: 'Repeat album', song: 'Repeat song' };
+      repeatBtn.setAttribute('aria-label', repeatLabels[playbackState.repeatMode]);
+    }
+
+    function closeSong(){
+      pausePlayback();
+      playbackState.currentSongId = null;
+      playbackState.currentAlbumId = null;
+      playbackState.repeatMode = 'off';
+      playbackState.shuffle = false;
+      layout.dataset.view = 'list';
+      detailPane.hidden = true;
+      annotationPane.hidden = true;
+      songButtons.forEach(btn => {
+        btn.classList.remove('is-active');
+        btn.setAttribute('aria-pressed', 'false');
+      });
+      lyricContainer.innerHTML = '<p class="lyric-line">Lyrics appear once a song is selected.</p>';
+      detailTitle.textContent = 'Select a song';
+      detailAlbum.textContent = '—';
+      detailProduced.textContent = '—';
+      detailDuration.textContent = '—';
+      detailInspiration.textContent = '—';
+      detailOrigin.textContent = 'Select a track to uncover how it came to life.';
+      playerCurrentTime.textContent = '0:00';
+      playerDurationTime.textContent = '0:00';
+      playerSeek.value = 0;
+      updatePlaybackUi();
+    }
+
+    function closeAnnotation(){
+      playbackState.annotationId = null;
+      annotationPane.hidden = true;
+      lyricContainer.querySelectorAll('.lyric__highlight').forEach(el => el.classList.remove('is-active'));
+      layout.dataset.view = playbackState.currentSongId ? 'song' : 'list';
+    }
+
+    songButtons.forEach(btn => {
+      btn.addEventListener('click', () => selectSong(btn.dataset.songId, btn, { shouldPlay: true }));
+    });
+
+    albumElements.forEach(albumEl => {
+      const albumId = albumEl.dataset.album;
+      const playBtn = albumEl.querySelector('[data-album-play]');
+      const nextBtn = albumEl.querySelector('[data-album-next]');
+
+      if(playBtn){
+        playBtn.addEventListener('click', () => togglePlay(albumId));
+      }
+      if(nextBtn){
+        nextBtn.addEventListener('click', () => playNext());
+      }
+    });
+
+    shuffleBtn.addEventListener('click', () => {
+      playbackState.shuffle = !playbackState.shuffle;
+      updatePlaybackUi();
+    });
+
+    repeatBtn.addEventListener('click', () => {
+      const modes = ['off', 'album', 'song'];
+      const nextIndex = (modes.indexOf(playbackState.repeatMode) + 1) % modes.length;
+      playbackState.repeatMode = modes[nextIndex];
+      updatePlaybackUi();
+    });
+
+    playerPlayBtn.addEventListener('click', () => {
+      if(!playbackState.currentSongId){
+        const firstAlbum = albumElements[0];
+        if(firstAlbum){
+          togglePlay(firstAlbum.dataset.album);
+        }
+        return;
+      }
+      if(playbackState.isPlaying){
+        pausePlayback();
+      } else {
+        startPlayback(playbackState.currentSongId);
+      }
+    });
+
+    playerNextBtn.addEventListener('click', () => playNext());
+
+    playerSeek.addEventListener('input', () => {
+      if(playerSeek.disabled){
+        return;
+      }
+      isSeeking = true;
+      playerCurrentTime.textContent = formatTime(playerSeek.value);
+    });
+
+    playerSeek.addEventListener('change', () => {
+      if(playerSeek.disabled){
+        return;
+      }
+      audioPlayer.currentTime = Number(playerSeek.value || 0);
+      isSeeking = false;
+      playerCurrentTime.textContent = formatTime(audioPlayer.currentTime);
+    });
+
+    detailClose.addEventListener('click', closeSong);
+    annotationClose.addEventListener('click', closeAnnotation);
+
+    audioPlayer.addEventListener('timeupdate', () => {
+      if(isSeeking){
+        return;
+      }
+      playerSeek.value = audioPlayer.currentTime || 0;
+      playerCurrentTime.textContent = formatTime(audioPlayer.currentTime);
+    });
+
+    audioPlayer.addEventListener('loadedmetadata', () => {
+      if(Number.isFinite(audioPlayer.duration)){
+        playerSeek.max = Math.floor(audioPlayer.duration);
+        playerDurationTime.textContent = formatTime(audioPlayer.duration);
+      }
+    });
+
+    audioPlayer.addEventListener('durationchange', () => {
+      if(Number.isFinite(audioPlayer.duration)){
+        playerSeek.max = Math.floor(audioPlayer.duration);
+        playerDurationTime.textContent = formatTime(audioPlayer.duration);
+      }
+    });
+
+    audioPlayer.addEventListener('play', () => {
+      playbackState.isPlaying = true;
+      updatePlaybackUi();
+    });
+
+    audioPlayer.addEventListener('pause', () => {
+      playbackState.isPlaying = false;
+      updatePlaybackUi();
+    });
+
+    audioPlayer.addEventListener('ended', handleTrackEnd);
+
+    updatePlaybackUi();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
