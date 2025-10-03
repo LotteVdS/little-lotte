@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>little-lotte — The Phantom of Therapy</title>
+  <title>little-lotte - The Phantom of Therapy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0b0b0c;            /* page background */
-      --panel:#121214;         /* hero panel edge */
-      --text:#f4f4f5;          /* body text */
-      --muted:#b6b6bc;         /* muted text */
-      --accent:#D8FF3F;        /* big headline (swap to deep red if you want) */
-      --accent-alt:#9b0d2b;    /* phantom velvet */
-      --card:#ffffff;          /* audio card bg */
-      --shadow:0 10px 30px rgba(0,0,0,.45);
-      --radius:18px;
+      --bg:#0b0b0c;
+      --panel:#121214;
+      --text:#f4f4f5;
+      --muted:#b6b6bc;
+      --accent:#8dd3c6;
+      --card:#ffffff;
+      --shadow:0 16px 40px rgba(0,0,0,.45);
+      --radius:20px;
+      --edge:clamp(28px, 8vw, 140px);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -26,150 +26,256 @@
       line-height:1.4;
     }
 
-    /* Header brand (top-right) */
+    /* Header */
     header{
-      position:fixed; inset:20px 24px auto auto; z-index:20;
+      position:fixed; inset:0 0 auto 0; z-index:20;
+      background:#000;
       font-weight:800; letter-spacing:.02em; text-transform:uppercase;
     }
-    header a{color:var(--accent); text-decoration:none}
-    header a:hover{opacity:.9}
+    .header__inner{
+      max-width:1200px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:32px; padding:22px 32px;
+    }
+    .brand{
+      color:var(--accent); text-decoration:none;
+      font-size:26px; letter-spacing:.08em;
+    }
+    .brand:hover{opacity:.9}
+    nav ul{list-style:none; margin:0; padding:0; display:flex; gap:28px; align-items:center;}
+    .nav__link{
+      color:var(--muted); text-decoration:none; font-size:15px; font-weight:600;
+      letter-spacing:.04em; transition:color .2s ease;
+    }
+    .nav__link:hover{color:var(--text)}
+    .nav__link.is-active{color:var(--accent)}
+    .nav__actions{display:flex; gap:18px; align-items:center;}
+    .icon-btn{
+      border:0; background:none; color:var(--text); padding:6px;
+      display:grid; place-items:center; cursor:pointer;
+    }
+    .icon-btn:hover{color:var(--accent)}
+    .icon-btn svg{width:18px; height:18px; fill:currentColor}
 
     /* Hero panel */
     .hero{
-      min-height:100dvh; padding:28px;
+      min-height:100dvh; padding:100px var(--edge) 22px;
       display:flex; align-items:stretch; justify-content:center;
     }
     .hero__inner{
       position:relative; flex:1; border-radius:var(--radius);
       overflow:hidden; background:var(--panel);
       max-width:1200px; width:100%;
+      box-shadow:0 40px 90px rgba(0,0,0,.55);
+    }
+    .hero__inner::before{
+      content:""; position:absolute; inset:20px; border-radius:calc(var(--radius) + 6px);
+      border:1px solid rgba(255,255,255,.05); pointer-events:none;
     }
     .hero__bg{
       position:absolute; inset:0;
-      background:
-        radial-gradient(1200px 600px at 70% 60%, rgba(216,255,63,.20), transparent 60%),
-        linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.25) 35%, rgba(0,0,0,.55)),
-        url("assets/hero.jpg") center/cover no-repeat;
-      filter:saturate(1.2) contrast(1.05) brightness(.9) blur(0px);
+      background-image:
+        radial-gradient(1200px 620px at 72% 58%, rgba(216,255,63,.22), rgba(0,0,0,0) 62%),
+        linear-gradient(to top, rgba(0,0,0,.65), rgba(0,0,0,.35) 40%, rgba(0,0,0,.65)),
+        url("./assets/hero.jpeg");
+      background-size:cover;
+      background-position:60% 52%;
+      background-repeat:no-repeat;
+      filter:saturate(1.2) contrast(1.1) brightness(.95);
       will-change:transform;
     }
-    /* Soft vignette + subtle film grain */
     .hero__inner::after{
       content:""; position:absolute; inset:0; pointer-events:none;
       background:
-        radial-gradient(60% 80% at 50% 60%, rgba(0,0,0,0) 0%, rgba(0,0,0,.35) 100%),
+        radial-gradient(65% 85% at 50% 64%, rgba(0,0,0,0) 0%, rgba(0,0,0,.38) 100%),
         repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0 1px, transparent 1px 2px);
       mix-blend-mode:multiply;
     }
 
-    /* Content layout inside hero */
     .hero__content{
-      position:relative; z-index:2; height:100%;
-      display:grid; grid-template-rows:1fr auto; padding:42px 44px 54px;
+      position:absolute; inset:auto 0 clamp(26px, 6vw, 8px) 0;
+      z-index:3;
+      display:flex; flex-direction:column; align-items:flex-start;
+      gap:clamp(24px, 6vh, 60px);
+      padding:0 var(--edge);
+      width:100%;
     }
 
-    /* Left intro text */
     .lede{
-      max-width:520px; margin-top:8vh;
-      font-size:clamp(16px, 1.4vw, 20px);
+      max-width:200px;
+      font-size:clamp(15px, 1.2vw, 19px);
+      margin:0;
     }
-    .lede p{margin:.2em 0;color:var(--text)}
+    .lede p{margin:.25em 0;color:var(--text)}
     .lede .muted{color:var(--muted)}
 
-    /* Big headline */
     .huge{
-      margin:0; align-self:end;
-      font-family:"Playfair Display", Georgia, serif;
-      font-weight:900; line-height:.9; letter-spacing:.02em;
-      font-size:clamp(36px, 10vw, 120px);
+      margin:0 auto;
+      white-space:nowrap;
+      font-family:"Anton", sans-serif;
+      font-weight:400; line-height:.84;
       text-transform:uppercase; color:var(--accent);
-      text-shadow:0 3px 0 rgba(0,0,0,.25);
+      text-shadow:0 12px 26px rgba(0,0,0,.55);
+      font-size: clamp(1.5rem, 10vw, 6.2rem);   /* smaller vs viewport */
+      letter-spacing: clamp(0.01em, .4vw, .06em); /* tighten on small */
     }
 
-    /* Floating audio card (center-ish) */
-    .nowplaying{
-      position:absolute; left:50%; top:40%;
+    
+
+    .vinyl{
+      position:absolute; left:50%; top:74%;
       transform:translate(-50%,-50%);
-      display:flex; align-items:center; gap:14px;
-      background:var(--card); color:#111; padding:12px 14px;
-      border-radius:14px; box-shadow:var(--shadow);
-      width:max-content; min-width:260px;
+      width:min(46vw, 420px);
+      aspect-ratio:1;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,.4) 0 7%, rgba(255,255,255,0) 7% 16%),
+        radial-gradient(circle at 50% 50%, rgba(10,10,10,.55) 0 38%, rgba(10,10,10,.35) 38% 60%, rgba(10,10,10,.12) 60% 100%),
+        conic-gradient(from 120deg at 50% 50%, rgba(255,255,255,.08), rgba(0,0,0,.25), rgba(255,255,255,.12), rgba(0,0,0,.2), rgba(255,255,255,.08));
+      box-shadow:0 28px 70px rgba(0,0,0,.32);
+      overflow:hidden;
+      mix-blend-mode:screen;
+      opacity:.7;
+      z-index:2;
+    }
+    .vinyl::before{
+      content:""; position:absolute; inset:0;
+      background:radial-gradient(circle at 48% 45%, rgba(255,255,255,.14) 0%, rgba(0,0,0,0) 70%);
+    }
+    .vinyl::after{
+      content:""; position:absolute; inset:18%;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(0,0,0,.7) 0 12%, rgba(210,200,180,.65) 12% 52%, rgba(30,30,30,.4) 52% 100%);
+      filter:blur(.3px);
+      mix-blend-mode:multiply;
+      opacity:.8;
+    }
+
+    .nowplaying{
+      position:absolute; left:50%; top:49%;
+      transform:translate(-50%,-50%);
+      display:flex; align-items:center; gap:16px;
+      background:linear-gradient(135deg, rgba(255,255,255,.94), rgba(240,240,240,.86));
+      color:#111; padding:16px 18px;
+      border-radius:20px; box-shadow:0 22px 45px rgba(0,0,0,.48);
+      width:max-content; min-width:280px;
+      z-index:4;
+      backdrop-filter:blur(10px);
     }
     .thumb{
-      width:44px; height:44px; border-radius:8px;
-      background:#ddd url("assets/cover.jpg") center/cover no-repeat;
-      box-shadow:0 2px 10px rgba(0,0,0,.18);
+      width:50px; height:50px; border-radius:12px;
+      background:#ddd url("assets/cover.png") center/cover no-repeat;
+      box-shadow:0 4px 16px rgba(0,0,0,.25);
     }
     .meta{display:flex; flex-direction:column}
-    .title{font-weight:700; font-size:14.5px; line-height:1.1}
+    .title{font-weight:700; font-size:15px; line-height:1.1}
     .sub{font-size:12px; color:#656571}
     .play{
-      margin-left:4px; border:0; border-radius:10px; cursor:pointer;
-      width:38px; height:38px; display:grid; place-items:center;
-      background:#111; color:#fff; font-weight:700;
+      margin-left:4px; border:0; border-radius:12px; cursor:pointer;
+      width:64px; height:42px; display:grid; place-items:center;
+      background:#111; color:#fff; font-weight:700; transition:transform .2s ease;
     }
+    .play:hover{transform:translateY(-1px);}
     .play:focus-visible{outline:2px solid var(--accent)}
     .badge{
-      position:absolute; right:10px; top:-22px;
+      position:absolute; right:12px; top:-18px;
       background:#fff; color:#111; font-size:11px; font-weight:700;
-      padding:4px 8px; border-radius:999px; box-shadow:var(--shadow);
+      padding:4px 10px; border-radius:999px; box-shadow:var(--shadow);
       letter-spacing:.02em;
     }
 
-    /* Mobile tweaks */
+    @media (max-width: 1020px){
+      .vinyl{left:63%; top:58%; width:min(58vw, 360px);}
+      .nowplaying{left:63%; top:52%;}
+    }
+    @media (max-width: 900px){
+      .header__inner{padding:18px 20px; gap:20px;}
+      nav ul{gap:20px;}
+      .nowplaying{position:relative; left:auto; top:auto; transform:none; margin:32px auto 0;}
+      .vinyl{left:auto; top:auto; transform:none; margin:0 auto 40px; width:min(70vw, 320px); opacity:.8; mix-blend-mode:normal;}
+      .hero__content{position:relative; inset:auto; padding:clamp(32px, 6vw, 56px) var(--edge) clamp(40px, 8vw, 72px); gap:clamp(24px, 7vw, 48px);}
+    }
+    @media (max-width: 760px){
+      nav{display:none;}
+    }
     @media (max-width: 700px){
-      .nowplaying{top:48%}
-      .lede{margin-top:5vh}
+      .hero{padding:140px var(--edge) 48px;}
+      .hero__content{gap:32px;}
+      .huge{font-size:clamp(44px, 18vw, 82px);}
     }
 
-    /* Respect reduced motion */
-    @media (prefers-reduced-motion: no-preference){
-      .hero__bg{transform:scale(1.02)}
-      .hero__inner:hover .hero__bg{transform:scale(1.05)}
-    }
+
   </style>
 </head>
 <body>
   <header>
-    <a href="/" aria-label="Home — little-lotte">Little Lotte</a>
+    <div class="header__inner">
+      <a class="brand" href="/little-lotte/" aria-label="Home - little-lotte">Little Lotte</a>
+      <nav aria-label="Primary navigation">
+        <ul>
+          <li><a class="nav__link is-active" href="#">Home</a></li>
+          <li><a class="nav__link" href="#">About</a></li>
+          <li><a class="nav__link" href="#">Playlists</a></li>
+                    <li><a class="nav__link" href="#">Songs</a></li>
+        </ul>
+      </nav>
+      <div class="nav__actions">
+        <button class="icon-btn" type="button" aria-label="Search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.71.71l.27.28v.79l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+        </button>
+      </div>
+    </div>
   </header>
 
   <main class="hero">
     <section class="hero__inner" role="region" aria-label="Homepage hero">
       <div class="hero__bg" aria-hidden="true"></div>
+      <div class="vinyl" aria-hidden="true"></div>
 
-      <!-- Floating 'current obsession' card -->
       <div class="nowplaying" role="group" aria-label="Current obsession">
         <span class="badge">Current obsession</span>
         <div class="thumb" aria-hidden="true"></div>
         <div class="meta">
-          <span class="title">Fast Memory</span>
-          <span class="sub">Blue Moon • 02:14</span>
+          <span class="title">Gravity Looks Good on You</span>
+          <span class="sub">Jake Mitchell &mdash; 03:21</span>
         </div>
-        <button class="play" id="playBtn" aria-pressed="false" aria-label="Play/Pause">▶</button>
+        <button class="play" id="playBtn" aria-pressed="false" aria-label="Play or pause">Play</button>
         <audio id="player" preload="none" src="audio/Gravity Looks Good on You.mp3"></audio>
       </div>
 
       <div class="hero__content">
         <div class="lede">
-          <p>Independent. Unfiltered. Unforgettable.</p>
-          <p class="muted">A lyrical scrapbook where music meets story — and highlights reveal the parts you can’t unhear.</p>
+          <p class="muted">A lyrical scrapbook where music meets story, and highlights reveal the parts you cannot unhear.</p>
         </div>
-        <h1 class="huge">THE PHANTOM OF THERAPY</h1>
+        <h1 class="huge">The Sound of Therapy</h1>
       </div>
     </section>
   </main>
 
   <script>
-    // Tiny play/pause logic – no libraries.
+    // Tiny play/pause logic - no libraries.
     const btn = document.getElementById('playBtn');
     const player = document.getElementById('player');
     btn.addEventListener('click', () => {
-      if (player.paused) { player.play(); btn.textContent = '❚❚'; btn.setAttribute('aria-pressed','true'); }
-      else { player.pause(); btn.textContent = '▶'; btn.setAttribute('aria-pressed','false'); }
+      if (player.paused) {
+        player.play();
+        btn.textContent = 'Pause';
+        btn.setAttribute('aria-pressed', 'true');
+      } else {
+        player.pause();
+        btn.textContent = 'Play';
+        btn.setAttribute('aria-pressed', 'false');
+      }
     });
-    // Pause icon reset when track ends
-    player.addEventListener('ended', () => { btn.textContent = '▶'; btn.setAttribute('aria-pressed','false'); });
+    player.addEventListener('ended', () => {
+      btn.textContent = 'Play';
+      btn.setAttribute('aria-pressed', 'false');
+    });
   </script>
 </body>
 </html>
+
+
+
+
