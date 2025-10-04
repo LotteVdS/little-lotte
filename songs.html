@@ -325,18 +325,19 @@
             <li><button class="song-btn" type="button" data-song-id="you-could-have" aria-pressed="false">You Could've (The Externally Oriented Motivation) <span>02:59</span></button></li>
             <li><button class="song-btn" type="button" data-song-id="does-not-count" aria-pressed="false">Doesn't Count (If It's For Me) (The Externally Oriented Motivation) <span>03:21</span></button></li>
             <li><button class="song-btn" type="button" data-song-id="done-with-me" aria-pressed="false">Done With Me (The Agency) <span>03:25</span></button></li>
+            <li><button class="song-btn" type="button" data-song-id="a-hug-not-a-kiss" aria-pressed="false">A Hug, Not A Kiss (The Need For Emotional Attunement) <span>04:17</span></button></li>
           </ul>
         </article>
 
-        <article class="album" data-album="not-all-men" data-cover="assets/out of touch cover art.png">
+        <article class="album" data-album="not-all-men" data-cover="assets/not all men cover art.jpg">
           <div class="album__header">
             <figure class="album__cover">
-              <img src="assets/out of touch cover art.png" alt="Not All Men album cover" loading="lazy" />
+              <img src="assets/not all men cover art.jpg" alt="Not All Men album cover" loading="lazy" />
             </figure>
             <div class="album__info">
               <p class="album__subtitle">2025 &middot; Concept release</p>
               <h3 class="album__title">Not All Men</h3>
-              <p class="album__description">This one's for the boys. Both fiction and fun, and the real life pain in the asses that I can't help but feel for.</p>
+              <p class="album__description">These are bonus tracks for the boys. Both fiction and fun, and the real life pain in the asses that I can't help but feel for.</p>
               <div class="album__controls" role="group" aria-label="Not All Men playback controls">
                 <button class="control-btn" type="button" data-album-play aria-pressed="false">Play</button>
                 <button class="control-btn" type="button" data-album-next>Next</button>
@@ -790,10 +791,86 @@
         duration: "03:39",
         inspiration: "This song had structure before it had sound. The seven weeks came first, then inspiration followed from a waltz.",
         origin: "This song touches upon the theme of time passing and missing someone over it. Every week describes progress, although not linear. It's a whole pocket of memories, fractured over time, only to reach the seventh week and feel surprised time has passed by at all.",
-        image: "assets/Forgotten & Forlonged cover art.png",
+        image: "assets/Time moves faster than I cover art.png",
         audio: "audio/Time Moves On Faster Than I.mp3",
-        lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
-        annotations: {}
+ lyrics: [
+  [ { text: "[Week One]" } ],
+  [ { text: "One week, I still grab my phone" } ],
+  [ { text: "Like I forgot I cut the wire through", highlight:true, annotationId:"timewire" } ],
+  [ { text: "A girl in line says “Moscow Mule”" } ],
+  [ { text: "And I catch myself about to message you" } ],
+  [ { text: "How many drinks till I can jump your back?" } ],
+  [ { text: "I almost text, imagining you joking back" } ],
+  [ { text: "But it's not important, not enough—" } ],
+  [ { text: "Not worth breaking the quiet up" } ],
+
+  [ { text: "\n\n[Week Two]" } ],
+  [ { text: "Two weeks, I'm home with laundry piles" } ],
+  [ { text: "Folding shirts in quiet miles" } ],
+  [ { text: "Fond memories of spring drift in—", highlight:true, annotationId:"timememories" } ],
+  [ { text: "You at your desk, sweater tucked under your chin" } ],
+  [ { text: "You said your mom's folds never stuck" } ],
+  [ { text: "They wrinkled in your suitcase's crush" } ],
+  [ { text: "I showed you how — one careful flick" } ],
+  [ { text: "Between our shifts… “Huh, never knew that trick.”" } ],
+
+  [ { text: "\n\n[Week Three]" } ],
+  [ { text: "Three weeks, I miss something small—" } ],
+  [ { text: "That park, that bench, that sunlit sprawl" } ],
+  [ { text: "You picked up trash on our way out" } ],
+  [ { text: "It's strange, the things we care about" } ],
+
+  [ { text: "\n\n[Week Four]" } ],
+  [ { text: "Four weeks, I'm laughing with a friend" } ],
+  [ { text: "Then drop your name —"}], [{text: "instant regret", highlight:true, annotationId:"timemissing" } ],
+  [ { text: "Like all the things I never sent" } ],
+  [ { text: "The way a note forgets to end" } ],
+
+  [ { text: "\n\n[Week Five & Six]" } ],
+  [ { text: "Five weeks, I don't leave my bed" } ],
+  [ { text: "Six, no trace left in my head" } ],
+  [ { text: "And just when I think the healing set—" } ],
+  [ { text: "I find another reason to be upset", highlight:true, annotationId:"timeupset" } ],
+
+  [ { text: "\n\n[Week Seven]" } ],
+  [ { text: "Seven weeks, I find our thread" } ],
+  [ { text: "The final words we ever said" } ],
+  [ { text: "I trace them with my fingertips" } ],
+  [ { text: "And wonder how you're reading it" } ],
+  [ { text: "I read them once, I read them twice" } ],
+  [ { text: "Still feel them echo, sharp and nice" } ],
+  [ { text: "I'm shocked the days have moved at all —" } ],
+  [ { text: "My birthday goes on without your call" } ],
+
+  [ { text: "\n\n[Outro]" } ],
+  [ { text: "Time ticks away" } ],
+  [ { text: "and you feel" } ],
+  [ { text: "like" } ],
+  [ { text: "yesterday.", highlight:true, annotationId:"timeyesterday" } ]
+],
+
+        annotations: {
+          timewire:{
+            title:"Cut the wire",
+            body: "This line was the hardest to find. I knew it had to be visual right from the start, not just words that said 'Oh I can't text this person anymore cause they're no longer in my life' but words that said it was an actual decision, an act I took to distance myself and a definite one at that. If you cut a phone's wire it's forever disconnected and that's how I felt."
+          },
+          timememories: {
+            title: "Fond memories",
+            body: "Week One and Week Two are the longest paragraphs on purpose. They're meant to represent that period where something's a fresh memory. And a fresh memory of a person means they're everywhere, all consuming, the most mundane things may remind you of that person. Though week one's emphasis is on how attacking that feeling may be, week two shows that it can be comforting to know some memories don't fade as quickly as you feared."
+          },
+          timemissing: {
+            title: "The missing",
+            body: "Week three and four move onto missing somebody. Actually feeling an ache - you're not just looking back onto times that made you feel good or safe or happy, but you want to crawl your way back into those moments. And it shames you a little to notice it's so obvious you can't let go, even if it was your decision. So once you let others notice someone's on your mind all the time, it feels like regret and the cycle of forgetting has to start all over again."
+          },
+          timeupset: {
+            title: "Upsetting timeframe",
+            body: "This point in the song meant to emphasize the nonlinearity. You move through these stages, these weeks getting shorter and shorter until you believe you'll wake up one day and don't think about it all that much anymore. Don't feel that ache as much. You think time might have healed it, and you finally moved past it. And while I do advocate for the fact carrying a weight gets easier with time, it's always up to you to discover why you're even carrying it in the first place. You'll see you have your reasons for not letting go of it yet and it'll feel like you're back to square one. Except this time you know yourself better. And so the healing progress is not a linear line up, but more a curvilinear line up. And there's comfort in knowing that, you may still fall and stumble and hurt yourself, but it won't be as deep next time."
+          },
+          timeyesterday: {
+            title: "You feel like yesterday",
+            body: "The outro of the song were the very first written lines that made it to the final version. They bottle the essence of what I was feeling. Not an emotion per se, but a yesterday. Something that seems not too long ago, yet you can never get back to."
+          }
+        }
       },
       "like-a-habit": {
         title: "Like A Habit",
@@ -801,11 +878,93 @@
         album: "Not All Men",
         produced: "10 May 2025",
         duration: "04:00",
-        inspiration: "Inspired by upbeat nostalgia, a certain visualness to it and catchy like the works of Taylor Swift and Maisie Peters",
-        origin: "I was listening to All Too Well (the 10 minute version) in the car and saw past how cathartic that song was for a moment. Instead I focused on how it was a trip down memory lane. From sweet to bitter. This song started out with that feeling and a list of good happenstances, that I hoped would help me overcome one bad one.",
-        image: "assets/Forgotten & Forlonged cover art.png",
+        inspiration: "Inspired by upbeat nostalgia, a certain visualness to it and hopefully catchy like the works of Taylor Swift and Maisie Peters",
+        origin: "I was listening to All Too Well (the 10 minute version) in the car and saw past how cathartic that song was for a moment. Instead I focused on how it was a trip down memory lane. From sweet to bitter. This song started out with that feeling and an actual list that I kept in my Notes app filled with good happenstances, a list that I hoped would help me overcome one bad one.",
+        image: "assets/like a habit cover art.png",
         audio: "audio/Like a Habit.mp3",
-        lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
+        lyrics: [
+  [ { text: "[Verse 1]" } ],
+  [ { text: "You offered me water when I barely coughed" } ],
+  [ { text: "Said it like a reflex, not like a thought" } ],
+  [ { text: "You grabbed my phone to check the time" } ],
+  [ { text: "Like it was yours —" } ],
+  [ { text: "God, I loved that sign." } ],
+
+  [ { text: "\nYou used my purse to stash a wedding card" } ],
+  [ { text: "Like we'd been tangled soft and smart" } ],
+  [ { text: "And every time we said goodbye" } ],
+  [ { text: "You texted right after, like: “this was nice.”" } ],
+
+  [ { text: "\n[Pre-Chorus]" } ],
+  [ { text: "I laughed with you without flinching once" } ],
+  [ { text: "No punchline ever left a scar" } ],
+  [ { text: "I scrolled to find a fight we had" } ],
+  [ { text: "Got lost in all the good parts" } ],
+
+  [ { text: "\n[Chorus]" } ],
+  [ { text: "You made me feel like a habit" } ],
+  [ { text: "Like something soft you didn't have to plan" } ],
+  [ { text: "Like sliding into something quiet" } ],
+  [ { text: "Like checking the clock with my hand in your hand" } ],
+  [ { text: "And I still scan every street for you" } ],
+  [ { text: "Like my heart thinks we're not through" } ],
+  [ { text: "You made me feel like a habit —" } ],
+  [ { text: "And I liked it too much to quit." } ],
+
+  [ { text: "\n[Verse 2]" } ],
+  [ { text: "You said I looked good when my hair was a mess" } ],
+  [ { text: "When my thighs had mosquito bites under that dress" } ],
+  [ { text: "When I sent you pics that weren't quite posed" } ],
+  [ { text: "And you answered like I'd just exposed" } ],
+  [ { text: "Gold." } ],
+
+  [ { text: "\nI showed up in a onesie and lingerie" } ],
+  [ { text: "Not sure if I'd stay, but you let it stay that way" } ],
+  [ { text: "We watched the movie, I kept my doubts" } ],
+  [ { text: "You never asked, you never pouted" } ],
+
+  [ { text: "\nYou taught me how to let it go" } ],
+  [ { text: "To laugh too loud, to say “don't know”" } ],
+  [ { text: "To be the kind of girl who didn't flinch" } ],
+  [ { text: "When her own heart made a wish" } ],
+
+  [ { text: "\n[Chorus 2]" } ],
+  [ { text: "You made me feel like a habit" } ],
+  [ { text: "Like something easy I could wear at night" } ],
+  [ { text: "Like a laugh that didn't ask for quiet" } ],
+  [ { text: "Like a maybe that still felt right" } ],
+  [ { text: "And I still scan every street for you" } ],
+  [ { text: "Like my heart thinks it's still true" } ],
+  [ { text: "You made me feel like a habit —" } ],
+  [ { text: "And now I don't know what to do." } ],
+
+  [ { text: "\n[Bridge]" } ],
+  [ { text: "The first time you saw my own place" } ],
+  [ { text: "You said the lights looked warm on my face" } ],
+  [ { text: "And later — breathless, I laughed like it was fine" } ],
+  [ { text: "But I still wonder if I crossed a line." } ],
+
+  [ { text: "\n'Cause after that you started fading" } ],
+  [ { text: "Took a day to answer, stopped engaging" } ],
+  [ { text: "I sent my best, you sent a shrug" } ],
+  [ { text: "And I kept dancing, hoping it was just bad luck." } ],
+
+  [ { text: "\nThen Athens showed up in her eyes" } ],
+  [ { text: "The caption had a heart, you wrote guapa in reply" } ],
+  [ { text: "And I know we never promised more" } ],
+  [ { text: "But I still checked the dates, like I was looking for a war." } ],
+
+  [ { text: "\n[Outro Chorus]" } ],
+  [ { text: "You made me feel like a habit" } ],
+  [ { text: "Like something soft you'd carry for a while" } ],
+  [ { text: "Like a late-night text, like borrowed quiet" } ],
+  [ { text: "Like comfort worn down into denial" } ],
+  [ { text: "And I still scan every street for you" } ],
+  [ { text: "But now it feels like being used" } ],
+  [ { text: "You made me feel like a habit —" } ],
+  [ { text: "And habits… are hard to lose." } ]
+],
+
         annotations: {}
       },
       "pleased-to-meet-you-alexandra": {
@@ -816,25 +975,304 @@
         duration: "03:44",
         inspiration: "100% petty revenge anger like Get Him Back by Olivia Rodrigo",
         origin: "I was at a point where I realized that not everything that happens is my fault. If someone hurts me, I'm allowed to be hurt and be angry at that person, even if there's still fond memories and love for that person. I learned this in therapy, and most definitely the kick-ass solo karaoke session I had afterwards. But then I came home, and saw something I had known and been angry about for a long time, just hadn't had that confirmation yet. It ruined my day and I woke up feeling petty. Cue this song.",
-        image: "assets/Forgotten & Forlonged cover art.png",
+        image: "assets/Pleased to meet you (Alexandra).png",
         audio: "audio/Pleased to Meet You (Alexandra).mp3",
-        lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
-        annotations: {}
+        lyrics: [
+  [ { text: "[Spoken Intro – Dry, Deadpan]", highlight:true, annotationId:"pleasedintro" } ],
+  [ { text: "You know... I'm a people pleaser." } ],
+  [ { text: "So I'm pleased to meet her." } ],
+  [ { text: "Does she also not know you and I still fucked..." } ],
+  [ { text: "back when she thought, “Oh, he's a keeper?”" } ],
+
+  [ { text: "\n[Verse 1]" } ],
+  [ { text: "Saw your profile change — no surprise." } ],
+  [ { text: "A soft-launch at the damn finish line." } ],
+  [ { text: "You said you'd tell me if your status changed." } ],
+  [ { text: "So what's her name again? Oh, wait—" } ],
+
+  [ { text: "\nShe liked my comment, just one click." } ],
+  [ { text: "Yeah! Did you know she knows I exist?" } ],
+  [ { text: "I bet she's sweet, and kind, and sane." } ],
+  [ { text: "I hope she likes that same old game" } ],
+  [ { text: "Where you forget to text for days" } ],
+  [ { text: "And only reply to get it out of the way." } ],
+
+  [ { text: "\n[Pre-Chorus]" } ],
+  [ { text: "My New Year's goal was to get my license." } ],
+  [ { text: "You said, “That one's in your hands, I believe in you.”" } ],
+  [ { text: "So believe me now when I say:" } ],
+  [ { text: "I'm this close to swerving you two off the avenue.", highlight:true, annotationId:"pleasedthreat" } ],
+
+  [{text:"\n"}],
+
+  [ { text: "[Chorus]" , highlight:true, annotationId: "pleasedchorus"} ],
+  [ { text: "I'm a people pleaser — pleased to meet her." } ],
+  [ { text: "Hope you put her on top like it's your mission." } ],
+  [ { text: "(Happen to recall"}, {text:"your favourite position.", highlight:true, annotationId:"pleasedinnuendos"}, {text:"Funny, innit?)" } ],
+
+  [ { text: "\n[Verse 2]" } ],
+  [ { text: "If I see you two out, I'll cross the street," } ],
+  [ { text: "Wave real nice, ask, “How'd you meet?”" } ],
+  [ { text: "Was it before those shirtless pics last summer?" } ],
+  [ { text: "Or after you undressed me in. that. heat?!" } ],
+
+  [ { text: "\nYou ghosted soft, like “sorry, work.”" } ],
+  [ { text: "But baby, ghosts don't get to flirt." } ],
+  [ { text: "You said you weren't dating anyone" } ],
+  [ { text: "While stripping me in my new home. Fun!" } ],
+  [ { text: "Was I that bad in bed? Was I too quiet?", highlight:true, annotationId:"pleasedinsecurities" } ],
+  [ { text: "Too easy, needy, bored, or not so private?" } ],
+  [ { text: "I took the blame for every dip" } ],
+  [ { text: "While you packed bags for your Greek trip." } ],
+
+  [ { text: "\n[Pre-Chorus]" } ],
+  [ { text: "I'm done defending all your sins" } ],
+  [ { text: "To friends who said, “You're his backup plan?”" } ],
+  [ { text: "I'll let her have this year's season's pass" } ],
+  [ { text: "Just hope she likes things up her—", highlight:true, annotationId:"pleasedsilence" } ],
+
+  [ { text: "\n[Chorus]" } ],
+  [ { text: "I'm a people pleaser — pleased to meet her." } ],
+  [ { text: "Hope she laughs when you “forget to need her.”" } ],
+  [ { text: "Hope she gets the textbook dreamboy savior" } ],
+  [ { text: "Who shows up never but texts “maybe later.”" } ],
+  [ { text: "Hope she kneels for you and doesn't freeze" } ],
+  [ { text: "When you push her back. Mid-please." } ],
+  [ { text: "Oh, you think I overthink too much?" } ],
+  [ { text: "I won't tell her stuff, but hope she knows enough." } ],
+
+  [ { text: "\n[Bridge – Soft, Ironic]" } ],
+  [ { text: "You were a good friend." } ],
+  [ { text: "Too bad that you lied." } ],
+  [ { text: "Too bad that you ignored" } ],
+  [ { text: "What you couldn't hide." } ],
+  [ { text: "And she's probably great." } ],
+  [ { text: "Hope you treat her right.", highlight:true, annotationId:"pleasedtarget" } ],
+  [ { text: "I mean that, I do—" } ],
+  [ { text: "Just not tonight." } ],
+
+  [ { text: "\n[Crowd Call – Spoken Shout]" } ],
+  [ { text: "Say it with me now!" } ],
+  [ { text: "“I'M A PEOPLE PLEASER!”" } ],
+
+  [ { text: "\n[Final Chorus – Fire]" } ],
+  [ { text: "I'm a people pleaser — pleased to meet her." } ],
+  [ { text: "Hope she never gets the real you either." } ],
+  [ { text: "Hope she skips the slow decay" } ],
+  [ { text: "Where texts dry up by Saturday." } ],
+  [ { text: "Hope she never feels the shame" } ],
+  [ { text: "Of wondering if she's to blame." } ],
+  [ { text: "Hope you prove me wrong someday—" } ],
+  [ { text: "But I doubt you'll change that way." } ],
+
+  [ { text: "\n[Outro]" } ],
+  [ { text: "Tell her hi from me." } ],
+  [ { text: "Yeah! Tell her I said hey." } ],
+  [ { text: "Tell her “Alexandra” — pretty name —" } ],
+  [ { text: "for the twist I saw coming, anyway." } ]
+],
+
+        annotations: {
+          pleasedintro: {
+            title: "Spoken intro/outro",
+            body: "Spoken sarcasm is a pinnacle of bitchy song-writing, if you ask me. There's nothing pettier than confronting a person with a good hard-hitting line. Preferrably something so out of character, that it almost makes you wonder if this is the real version of me or my outward compassion is. (Spoiler: maybe it's both)"
+          },
+          pleasedthreat: {
+            title: "Threat",
+            body: "I'm not usually in the business of making threats. I either think something up and do it, or I control myself enough to surpress the itch. But petty revenge isn't complete without a threat, think of all the best country songs and No Body No Crime. It was really fun thinking up revenge plans with friends. In the end I went with a clearly overexaggerated one as to demonstrate that, for legal purposes, they're empty words."
+          },
+          pleasedchorus: {
+            title: "Short chorus",
+            body: "The first chorus is rather short. There was a longer version written, with more stabs like 'Hope she fakes it too through your lightsaber bit' but they strained too much from the actual truth of what went down (and I didn't want to disrespect Star Wars over one man). Ultimately these lines got cut. There's no point in adding more hauntings than the ones you already have, innit?"
+          },
+          pleasedinnuendos: {
+            title: "Innuendos",
+            body: "Using double entendres in the lyrics is a way to make a song sound more scandalous. (I hope) It makes you look away from the words for a second or cover your mouth, thinking 'oh no she did not'. But aside from how fun it is to write and twist it, sex was at the centre of this argument. It's what hurt me so it only feels fair to want to hurt back with it. Sometimes, you do just want to bring a sword to a sword fight (and watch it get messy)."
+          },
+          pleasedinsecurities: {
+            title: "Insecurity at play",
+            body: "Maybe this is only how an overthinker/analytical brain functions, but if one hypothesis fails, I like to move onto the next one. Imagine as a scientist you observe a change. You establish it's not the other party, black on white they tell you it's not your most likely hypothesis. So you move onto the next one, if they're not dating anyone else, why then the fault must lie with you. I went in circles over this for weeks, truthfully, coming up with reasons what I could have done wrong or done better. That's the part I'm angry about the most, hidden in plain sight in this second verse. I was a firm believer of the axiom that friends don't lie, and knowing I turned on myself over this, was what hurt most in the end."
+          },
+          pleasedsilence: {
+            title: "Silence",
+            body: "I liked the idea that cutting myself off before I said something, which is behaviour I used to do on the daily, actually would feel more rewarding than saying it. You know what they say, sometimes silence speaks louder than words."
+          },
+          pleasedtarget: {
+            title: "Target practice",
+            body: "I wanted the bridge to emphasize once more who the target of my anger was. Not this girl I never even met and had a very good first impression of, who I feel sorry for and sorry towards. (I blame myself more than I blame her because I feel like I should've known better.) Only blame those who put you in positions you explicitly stated you did not want to be put in, the ones who intentionally do not think of the consequences of their actions."
+          }
+        }
       },
       "i-dont-get-to-burn": {
         title: "I Don't Get To Burn",
         albumId: "not-all-men",
         album: "Not All Men",
         produced: "15 June 2025",
-        duration: "04:00",
+        duration: "04:15",
         inspiration: "Burn from Hamilton because musical songs help me bottle emotions best",
-        origin: "It's not a song about righteous anger. It's a song about being the one who was hurt (but didn't show it) and then got robbed of the right to be angry, leaving me feeling erased, without closure and made out to be the villain. I wrote this the day after I found out someone blocked me everywhere. I laughed so loud when I found out but then it was pretty much that Oprah meme (were you silent or were you silenced?) all night after that.",
-        image: "assets/Forgotten & Forlonged cover art.png",
+        origin: "It's not a song about righteous anger. It's a song about being the one who was hurt (but who didn't show it) and then got robbed of the right to be angry, leaving me feeling erased, without closure and made out to be the villain. I wrote this the day after I found out someone blocked me everywhere. I laughed so loud when I found out but then it was pretty much that Oprah meme (were you silent or were you silenced?) and then just a quiet sting that comes from realizing you didn't know a person at all, all night after that.",
+        image: "assets/I don't get to burn cards cover art.png",
         audio: "audio/I Don’t Get to Burn (extended version).mp3",
-        lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
-        annotations: {}
+lyrics: [
+  [ { text: "[Verse 1]" } ],
+  [ { text: "I missed you"}, {text: "yesterday.", highlight: true, annotationId:"idgtbyesterday" } ],
+  [ { text: "Not the truth of you — the memory." } ],
+  [ { text: "The version I held onto" } ],
+  [ { text: "When I still thought you remembered me" } ],
+  [ { text: "I let the silence settle" } ],
+  [ { text: "Told myself, “That's probably best.”" } ],
+  [ { text: "And gave you all the space" } ],
+  [ { text: "You needed to forget" } ],
+
+  [ { text: "\n[Verse 2]" } ],
+  [ { text: "Then you brought her on stage — so publicly" } ],
+  [ { text: "But it knocked the breath from me" } ],
+  [ { text: "A quiet kind of confirmation" } ],
+  [ { text: "Of the things I didn't want to see" } ],
+  [ { text: "And I thought, “Well…" } ],
+  [ { text: "I guess I was right.”" } ],
+  [ { text: "But being right's not a victory" } ],
+  [ { text: "When it guts you in the night" } ],
+
+  [ { text: "\n[Pre-Chorus]" } ],
+  [ { text: "So I stayed out of it." } ],
+  [ { text: "Didn't message, didn't post" } ],
+  [ { text: "Didn't tell her what you told me" } ],
+  [ { text: "Didn't need to be the ghost" } ],
+  [ { text: "I chose kindness" } ],
+  [ { text: "Over closure" } ],
+  [ { text: "Diplomacy" } ],
+  [ { text: "Over disclosure" } ],
+
+  [ { text: "\n[Chorus]" } ],
+  [ { text: "And I don't get to burn" } ],
+  [ { text: "Don't get to scream" } ],
+  [ { text: "Don't get to tear up every page" } ],
+  [ { text: "Or light up every dream" } ],
+  [ { text: "I don't get to send the messages" } ],
+  [ { text: "I never meant to write" } ],
+  [ { text: "I just sit here being right" } ],
+  [ { text: "And feeling wrong" } ],
+  [ { text: "All night" } ],
+
+  [ { text: "\n[Verse 3]" } ],
+  [ { text: "I kept defending you in whispers" } ],
+  [ { text: "To my friends who knew the score" } ],
+  [ { text: "Said, “He made a mistake" } ],
+  [ { text: "But he used to be more.”" } ],
+  [ { text: "I erased myself with dignity" } ],
+  [ { text: "Didn't start a scene," } ],
+  [ { text: "Didn't claim the victim card" } ],
+  [ { text: "Or ask, “Why weren't you honest with me?”" } ],
+
+  [ { text: "\n[BRIDGE]" } ],
+  [ { text: "Three months later," } ],
+  [ { text: "I'm the hater." } ],
+  [ { text: "She's the dated — and you? The traitor." } ],
+  [ { text: "We went from friends" } ],
+  [ { text: "To more, to less" } ],
+  [ { text: "Now I'm blocked" } ],
+  [ { text: "In every sense" } ],
+
+  [ { text: "\n[CHORUS]" } ],
+  [ { text: "And I don't get to burn" } ],
+  [ { text: "Don't get to cry" } ],
+  [ { text: "Don't get to ruin your reputation" } ],
+  [ { text: "Or even ask you why" } ],
+  [ { text: "I don't get to defend me from the villain" } ],
+  [ { text: "You must've sold her I became" } ],
+  [ { text: "I just sit here being decent" } ],
+  [ { text: "While you edit out my name" } ],
+
+  [ { text: "\n[SOFT BREAK]" } ],
+  [ { text: "And I hope you sleep well" } ],
+  [ { text: "Hope she forgave you in kind" } ],
+  [ { text: "And I hope you get the peace" } ],
+  [ { text: "You pretend that I denied, you two" } ],
+
+  [ { text: "\n[FINAL LINE]" } ],
+  [ { text: "No, I won't tell." } ],
+  [ { text: "I'm still being kind." } ],
+
+  [ { text: "\n[PIANO SCORE SWELLS ONE LAST TIME THEN FADES]" } ],
+
+  [ { text: "\n[FINAL LINE]" } ],
+  [ { text: "No, I won't tell." } ],
+  [ { text: "I'm still being kind." } ],
+
+  [ { text: "[OUTRO - PIANO NOTES]" } ]
+],
+
+        annotations: {
+          idgtbyesterday: {
+            title:"yesterday",
+            body:"this is a wink back to Time Moves Faster Than I"
+          }
+        }
+      },
+        "a-hug-not-a-kiss": {
+        title: "A Hug, Not A Kiss",
+        albumId: "out-of-touch",
+        album: "Out Of Touch",
+        produced: "4 October 2025",
+        duration: "04:17",
+        inspiration: "This song is a cover, all instrumentals belong to the brilliant Meryl Streep and ABBA in Mamma Mia when singing Slipping Through My Fingers",
+        origin: "The inspiration for this song was a feeling, or rather the absence of one.\n\n I woke up not wanting to wake, not wanting to dream, not wanting to message or write, so I took it upon myself to reflect on that emptiness. And while I was typing out what was happening, trying to validate this state I was in, I realized this was an emotion, too. It deserved to be bottled. \n\nThis song is about the 'ache of remembered tenderness' as I first described it. Not nostalgia exactly, not a wish to rewind or redo, but the yearning for a very specific texture of connection: the version of a person — or of yourself — before things turned complicated, when attention felt effortless. When small gestures felt like whole universes.\n\n It's a longing for presence without demand, for being witnessed without performance. It's not about romance or sex or “getting back together.” It's about wanting to feel again what it was like to be met with that playful, genuine intimacy: someone who listened, remembered you liked ice cream, and sent a photo just to say I thought of you. \n\n The Portuguese might call it saudade (a deep, melancholic longing for something absent). The Welsh might call it hiraeth (a homesickness for a place that never was). In Japanese, natsukashii (the warm nostalgia for something precious).\n\nIt's wanting a hug, not a kiss. It's craving someone next to you in bed not because you're lonely, but because you're full, and you want to spill a little of that fullness into shared space.\n\nI wrote an entirely different song before this one, my favourite line from it was 'A kind of attention too quiet to name. That said: I see you — and I'll look again.' But this cover carries all of this within its heart.",
+        image: "assets/a hug, not a kiss cover art.png",
+        audio: "audio/A Hug, Not A Kiss.mp3",
+        lyrics: [
+  [ { text: "[Verse 1]" } ],
+  [ { text: "Coldness in bed, it sleeps beside me till the early morning." } ],
+  [ { text: "Filling the space, where another soul could lie." } ],
+  [ { text: "I stretch my legs, curl around that shape of no man's land" } ],
+  [ { text: "And I close my eyes before I cry." } ],
+
+  [ { text: "\n\n[Bridge]" } ],
+  [ { text: "The feeling that sits between home and sickness," } ],
+  [ { text: "leaves a bittersweet taste on the tongue." } ],
+  [ { text: "It's aching for a warmth you want to savour," } ],
+  [ { text: "and knowing it's long gone." } ],
+
+  [ { text: "[Chorus]" } ],
+  [ { text: "Lingering in your arms for a while" } ],
+  [ { text: "was worth the grief that followed after." } ],
+  [ { text: "Healed more than laughter — lingering in your arms for a while" } ],
+  [ { text: "God I really miss how you were kind" } ],
+  [ { text: "Each time I feared it all was over," } ],
+  [ { text: "You pulled me closer — lingering in your arms for a while." } ],
+
+  [ { text: "[Verse 2]" } ],
+  [ { text: "Sun's on our backs, you and me at the picnic table" } ],
+  [ { text: "Talking out loud, about all we held inside" } ],
+  [ { text: "Since you've been gone, I have lost part of my own meaning" } ],
+  [ { text: "And the means to point out the upside" } ],
+
+  [ { text: "[Bridge]" } ],
+  [ { text: "What happens if we pass by one another?" } ],
+  [ { text: "Will anger take over the place of joy?" } ],
+  [ { text: "Well, some of it's my fault, but most it isn't" } ],
+  [ { text: "So why can't I come home?" } ],
+
+  [ { text: "[Chorus]" } ],
+  [ { text: "Lingering in your arms for a while" } ],
+  [ { text: "was worth the grief that followed after." } ],
+  [ { text: "Healed more than laughter — lingering in your arms for a while" } ],
+  [ { text: "God I really miss how you were kind" } ],
+  [ { text: "Each time I feared it all was over," } ],
+  [ { text: "You pulled me closer — lingering in your arms for a while." } ],
+  [ { text: "Sometimes I wish that I could knock on your door" } ],
+  [ { text: "And ask you back a little of that warmth" } ],
+  [ { text: "Lingering in your arms" } ],
+
+  [ { text: "[Outro]" } ],
+  [ { text: "Coldness in bed, it sleeps beside me till the early morning." } ],
+  [ { text: "Filling the space, where another soul could lie." } ]
+],
+        annotations: { }
       },
     };
+
+
 
     const layout = document.getElementById('songsLayout');
     const detailPane = document.querySelector('.songs__detail');
@@ -881,6 +1319,7 @@
     const playbackState = {
       currentSongId: null,
       currentAlbumId: null,
+      loadedSongId: null,
       repeatMode: 'off',
       shuffle: false,
       isPlaying: false,
@@ -1024,22 +1463,35 @@
       }
       if(!song.audio){
         pausePlayback();
+        playbackState.loadedSongId = null;
+        audioPlayer.removeAttribute('src');
+        audioPlayer.load();
         return;
       }
-      audioPlayer.src = song.audio;
-      audioPlayer.currentTime = 0;
+      const isSameSource = playbackState.loadedSongId === songId;
+      if(!isSameSource){
+        audioPlayer.src = song.audio;
+        audioPlayer.currentTime = 0;
+        playbackState.loadedSongId = songId;
+      }
       const parsed = parseDurationString(song.duration);
       if(Number.isFinite(parsed)){
         playerSeek.max = parsed;
         playerDurationTime.textContent = formatTime(parsed);
       }
-      audioPlayer.play().then(() => {
+      const playResult = audioPlayer.play();
+      if(playResult && typeof playResult.then === 'function'){
+        playResult.then(() => {
+          playbackState.isPlaying = true;
+          updatePlaybackUi();
+        }).catch(() => {
+          playbackState.isPlaying = false;
+          updatePlaybackUi();
+        });
+      } else {
         playbackState.isPlaying = true;
         updatePlaybackUi();
-      }).catch(() => {
-        playbackState.isPlaying = false;
-        updatePlaybackUi();
-      });
+      }
     }
 
     function pausePlayback(){
@@ -1050,6 +1502,31 @@
 
     function getPlayableSongs(albumId){
       return (albumSongMap.get(albumId) || []).filter(id => SONG_DATA[id]?.audio);
+    }
+
+    function togglePlay(albumId){
+      if(!albumId){
+        return;
+      }
+      const playable = getPlayableSongs(albumId);
+      if(!playable.length){
+        return;
+      }
+      const isCurrentAlbum = playbackState.currentAlbumId === albumId && playbackState.currentSongId;
+      if(isCurrentAlbum){
+        if(playbackState.isPlaying){
+          pausePlayback();
+        } else {
+          startPlayback(playbackState.currentSongId);
+        }
+        return;
+      }
+      let nextSongId = playable[0];
+      if(playbackState.currentSongId && playable.includes(playbackState.currentSongId)){
+        nextSongId = playbackState.currentSongId;
+      }
+      const targetButton = songButtons.find(button => button.dataset.songId === nextSongId);
+      selectSong(nextSongId, targetButton, { shouldPlay: true });
     }
 
     function playNext(){
@@ -1155,6 +1632,9 @@
 
     function closeSong(){
       pausePlayback();
+      playbackState.loadedSongId = null;
+      audioPlayer.removeAttribute('src');
+      audioPlayer.load();
       playbackState.currentSongId = null;
       playbackState.currentAlbumId = null;
       playbackState.repeatMode = 'off';
