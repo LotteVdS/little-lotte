@@ -306,7 +306,7 @@
             <div class="album__info">
               <p class="album__subtitle">2025 &middot; Concept release</p>
               <h3 class="album__title">Out of Touch</h3>
-              <p class="album__description">Each track teases apart a coping pattern, pairing theatrical drama with glitchy pop textures.</p>
+              <p class="album__description">Each track pulls apart a psychological pattern I've discovered through reflection and therapy and life and love and friends. It tries to bottle it, specifically the feelings paired with so listening to this song, helps me validate what I'm feeling.</p>
               <div class="album__controls" role="group" aria-label="Out of Touch playback controls">
                 <button class="control-btn" type="button" data-album-play aria-pressed="false">Play</button>
                 <button class="control-btn" type="button" data-album-next>Next</button>
@@ -1227,13 +1227,13 @@ lyrics: [
   [ { text: "I stretch my legs, curl around that shape of no man's land" } ],
   [ { text: "And I close my eyes before I cry." } ],
 
-  [ { text: "\n\n[Bridge]" } ],
+  [ { text: "\n[Bridge]" } ],
   [ { text: "The feeling that sits between home and sickness," } ],
   [ { text: "leaves a bittersweet taste on the tongue." } ],
-  [ { text: "It's aching for a warmth you want to savour," } ],
+  [ { text: "It's aching for"}, {text: "a warmth you want to savour,", highlight:true, annotationId:"fietest"} ],
   [ { text: "and knowing it's long gone." } ],
 
-  [ { text: "[Chorus]" } ],
+  [ { text: "\n[Chorus]" } ],
   [ { text: "Lingering in your arms for a while" } ],
   [ { text: "was worth the grief that followed after." } ],
   [ { text: "Healed more than laughter — lingering in your arms for a while" } ],
@@ -1241,19 +1241,19 @@ lyrics: [
   [ { text: "Each time I feared it all was over," } ],
   [ { text: "You pulled me closer — lingering in your arms for a while." } ],
 
-  [ { text: "[Verse 2]" } ],
+  [ { text: "\n[Verse 2]" } ],
   [ { text: "Sun's on our backs, you and me at the picnic table" } ],
   [ { text: "Talking out loud, about all we held inside" } ],
   [ { text: "Since you've been gone, I have lost part of my own meaning" } ],
   [ { text: "And the means to point out the upside" } ],
 
-  [ { text: "[Bridge]" } ],
+  [ { text: "\n[Bridge]" } ],
   [ { text: "What happens if we pass by one another?" } ],
   [ { text: "Will anger take over the place of joy?" } ],
   [ { text: "Well, some of it's my fault, but most it isn't" } ],
   [ { text: "So why can't I come home?" } ],
 
-  [ { text: "[Chorus]" } ],
+  [ { text: "\n[Chorus]" } ],
   [ { text: "Lingering in your arms for a while" } ],
   [ { text: "was worth the grief that followed after." } ],
   [ { text: "Healed more than laughter — lingering in your arms for a while" } ],
@@ -1264,11 +1264,17 @@ lyrics: [
   [ { text: "And ask you back a little of that warmth" } ],
   [ { text: "Lingering in your arms" } ],
 
-  [ { text: "[Outro]" } ],
+  [ { text: "\n[Outro]" } ],
   [ { text: "Coldness in bed, it sleeps beside me till the early morning." } ],
   [ { text: "Filling the space, where another soul could lie." } ]
 ],
-        annotations: { }
+        annotations: { 
+          fietest: {
+            title:"hey fie!",
+            body: "this is a test and a lil wave to my best friend :)"
+          }
+          
+        }
       },
     };
 
