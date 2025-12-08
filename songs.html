@@ -306,7 +306,7 @@
             <div class="album__info">
               <p class="album__subtitle">2025 &middot; Concept release</p>
               <h3 class="album__title">Out of Touch</h3>
-              <p class="album__description">Each track pulls apart a psychological pattern I've discovered through reflection and therapy and life and love and friends. It tries to bottle it, specifically the feelings paired with so listening to this song, helps me validate what I'm feeling.</p>
+              <p class="album__description">Each track pulls apart a psychological pattern I've discovered through reflection and therapy and life and love and friends. Most of them are from the perspective of that little voice in my head that doesn't always see things for what they truly are. Each song tries to bottle the pattern, specifically the feelings that go along with it. So listening to this song, helps me validate what I'm feeling and simultaneously distance myself from the voice over and over again.</p>
               <div class="album__controls" role="group" aria-label="Out of Touch playback controls">
                 <button class="control-btn" type="button" data-album-play aria-pressed="false">Play</button>
                 <button class="control-btn" type="button" data-album-next>Next</button>
@@ -354,7 +354,8 @@
             <li><button class="song-btn" type="button" data-song-id="like-a-habit" aria-pressed="false">Like A Habit <span>04:00</span></button></li>
             <li><button class="song-btn" type="button" data-song-id="pleased-to-meet-you-alexandra" aria-pressed="false">Pleased to Meet You (Alexandra) <span>03:44</span></button></li>
             <li><button class="song-btn" type="button" data-song-id="i-dont-get-to-burn" aria-pressed="false">I Don't Get To Burn <span>04:15</span></button></li>
-            </ul>
+            <li><button class="song-btn" type="button" data-song-id="gag-reflex" aria-pressed="false">Gag Reflex <span>04:17</span></button></li>
+          </ul>
         </article>
 
       </aside>
@@ -446,62 +447,78 @@
         produced: "10 May 2025",
         duration: "03:57",
         inspiration: "Witchy chaos with a twist like Last Midnight, Mother Knows Best, and Poor Unfortunate Souls.",
-        origin: "I started brainstorming 'villain' voices not as literal enemies, but as personifications of inner psychological patterns. My villain here was the way I overcorrect and rationalize harmful behavior to keep people 'good.' It birthed this voice that sounds logical and reasonable, but with a twist.",
+        origin: "I started brainstorming 'villain' voices not as literal enemies, but as personifications of inner psychological patterns. My villain here was the way I overcorrect and rationalize harmful behavior to keep people 'good.' Somemone will hurt me, and I'll try to find excuses in their place. It birthed this voice that sounds logical and reasonable, and tries to keep me from harm, but does it?",
         image: "assets/split the blame cover art.png",
         audio: "audio/Split the Blame (The Cognitive Dissonance).mp3",
         lyrics: [
           [ { text: "[Verse 1]" } ],
           [ { text: "You're being unfair. You know he meant well." } ],
-          [ { text: "People make mistakes — " }, { text: "you do too, can't you tell?", highlight: true, annotationId: "openingline" } ],
+          [ { text: "People make mistakes — you do too, can't you tell?", highlight: true, annotationId: "firstblame" } ],
           [ { text: "It's not black and white. You know that by now." } ],
           [ { text: "So don't call it hurt — it's just learning how." } ],
           [ { text: "You're not a child, you know. You've always seen the grey..." } ],
           [ { text: "Don't let those tender feelings get in your logic's way." } ],
           [ { text: "[Chorus]" } ],
-          [ { text: "Split the blame", highlight: true, annotationId: "mantra" }, { text: " — he didn't mean to." } ],
+          [ { text: "Split the blame — he didn't mean to." } ],
           [ { text: "You were too much. He was too tired." } ],
           [ { text: "Both of you flawed, both of you fired shots you didn't mean to aim..." } ],
-          [ { text: "Split the blame. That's what kind people do. Don't make this all about you." } ],
+          [ { text: "Split the blame. That's what kind people do. Don't make this all about you.", highlight: true, annotationtId: "selfblameasvalue" } ],
           [ { text: "[Verse 2]" } ],
           [ { text: "Remember his laugh? The way he held you tight?" } ],
-          [ { text: "Good people don't become monsters just 'cause they didn't act right." } ],
+          [ { text: "Good people don't become monsters just 'cause they didn't act right.", highlight:true, annotationId:"protectingtheideal" } ],
           [ { text: "You know you forgive too fast. But isn't that your gift?" } ],
           [ { text: "Compassion is a skill, my dear — and anger's just a rift." } ],
           [ { text: "[Bridge]" } ],
-          [ { text: "Shhh. Don't ask what you wanted. That's selfish, don't you see?" } ],
+          [ { text: "Shhh. Don't ask what you wanted. That's selfish, don't you see?", highlight: true, annotationId:"selferasure" } ],
           [ { text: "You always were the steady one. Don't go rewriting history..." } ],
           [ { text: "[Chorus 2]" } ],
           [ { text: "Split the blame — you were confusing. You were too cold. He was too proud." } ],
           [ { text: "Both of you lost in a moment too loud." } ],
-          [ { text: "Let go of the need to name who did what, who broke it, who's to blame..." } ],
+          [ { text: "Let go of the need to name who did what,", highlight: true, annotationId:"avoidancepeacekeeping"}], [{text: "who broke it, who's to blame..." } ],
           [ { text: "[Breakdown]" } ],
-          [ { text: "You're too wise to hate him. Too good to keep score." } ],
+          [ { text: "You're too wise to hate him. Too good to keep score.", highlight:true, annotationId:"moralityascontrol" } ],
           [ { text: "You choose to understand him — so why do you want more?" } ],
           [ { text: "You want to be right? You want to be loved? You think the two can live side by side?!" } ],
           [ { text: "Then you don't know love at all.", highlight: true, annotationId: "fallingmasks" } ],
           [ { text: "[Final Refrain]" } ],
-          [ { text: "Split the blame — you're not a victim. You let it happen. You watched it break." } ],
+          [ { text: "Split the blame —"}], [{text:"you're not a victim. You let it happen.", highlight:true, annotationId:"selfblameasfinaltwist"}], [{text:"You watched it break." } ],
           [ { text: "Don't look for truth now — you gave it away the moment you bit your tongue in shame..." } ],
           [ { text: "So take the shame. Take your silence. Take your part." } ],
-          [ { text: "Take the blame.", highlight: true, annotationId: "twist" } ]
+          [ { text: "Take the blame.", highlight: true, annotationId: "thecommand" } ]
         ],
         annotations: {
-          mantra: {
-            title: "Mantra of minimising",
-            body: "The internal script that keeps insisting you soften every blow. We looped the mantra under the chorus like a warning siren."
+          firstblame: {
+            title: "Minimizing the issue",
+            body: "Here, compassion is being used as a defense mechanism. The voice urges me to empathize with the person who hurt me before I've even acknowledged my own pain. It's a pattern rooted in the belief that offering understanding will keep me safe from conflict or abandonment. It's empathy as self-protection, not empathy as healing."
           },
-          openingline: {
-            title: "Trustworthy on purpose",
-            body: "Those first bars sound reasonable so the villain earns your trust. The logic is the trap."
+          selfblameasvalue: {
+            title: "Self-blame as value",
+            body: "The voice defines kindness as absorbing part of the blame. Because 'I don't want the other person to feel uncomfortable by my tears or my pain, so I'll take up my part of the responsibility to avoid conflict'. It takes one of my values (being kind) and reshapes it, uses it until it fits like a plaster to the wound and I'll go around convincing myself that sharing blame is the moral thing to do."
           },
-          fallingmasks: {
-            title: "Masks dropping",
-            body: "Here the polite voice finally snaps. It's the moment the manipulation stops hiding behind kindness."
+          protectingtheideal: {
+            title: "Protecting the idealized image",
+            body: "This is my cognitive dissonance trying to preserve the person's goodness at all costs. It separates their hurtful behavior from their character so I don't have to confront the painful truth that someone I trusted could still harm me. Then my world view would crumble. So instead the voice rushes to soothe me: if they're still “good,” then my hurt must be something else — misunderstanding, overreaction, bad timing."
           },
-          twist: {
-            title: "The final surrender",
-            body: "Ending on 'Take the blame' felt cruel and honest. The villain wins when you carry the whole mess alone."
-          }
+          selferasure: {
+  title: "Self-erasure framed as morality",
+  body: "This line shows how the voice redefines having needs as 'selfish'. By discouraging me from even asking for what I wanted, it protects the relationship at the cost of my own boundaries. The voice presents self-erasure as the morally correct choice — as if wanting clarity, honesty or care is unreasonable. It's a learned pattern: if I convince myself that my desires burden others, then silencing them feels like kindness rather than abandonment of myself."
+},
+avoidanceaspeacekeeping: {
+  title: "Avoidance disguised as peacekeeping",
+  body: "Here the voice pushes me to abandon clarity. Naming what happened — who did what, where the rupture really sits — would force me to face the discomfort of accountability. So the voice reframes avoidance as 'letting go', as if not assigning responsibility is the healthier, more peaceful choice. In reality, it protects the relationship narrative by dissolving the specifics of the harm, making the situation feel too vague to challenge."
+},
+moralityascontrol: {
+  title: "Morality used to control the narrative",
+  body: "This line shows how the cognitive dissonance voice weaponizes my own values against me. By telling me I'm 'too wise' or 'too good' to feel resentment, it frames very normal anger and boundary-setting as signs of moral failure. It suggests that keeping track of hurt is petty, and that forgiveness is the only virtuous option."
+},
+selfblameasfinaltwist: {
+  title: "Self-blame as the final twist",
+  body: "This is where the voice reveals its core function: protecting the relationship at all costs, even my own expense. After appealing to reason and morality, it shifts to outright blame — redefining harm as something I 'allowed' to happen. This is a classic pattern in self-directed shame: if I can believe I caused or permitted the wound, then I don't have to face the destabilizing truth that someone else chose to hurt me. It's a way of regaining a false sense of control by turning myself into the culprit."
+},
+thecommand: {
+  title: "The core command",
+  body: "The voice strips away all justification here and shows its true motive: preserving the other person's innocence by assigning the burden to me. After all the moral reasoning, minimization and self-gaslighting, it ends where it always meant to — demanding that I no longer blame someone, nor share the blame, but carry the blame all by myself."
+}
         }
       },
       "if-then-else": {
@@ -512,7 +529,7 @@
         duration: "02:31",
         inspiration: "Late-night spirals that turn feelings into broken logic trees.",
         origin: "Built from phone notes of every conditional thought that kept me awake. I sang it in one take just to outrun the loop.",
-        image: "assets/out of touch cover art.png",
+        image: "assets/if else then cover art.png",
         audio: "audio/If Then Else (The Overthinking).mp3",
         lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
         annotations: {}
@@ -525,7 +542,7 @@
         duration: "03:52",
         inspiration: "Clinging to connection even when the room says leave.",
         origin: "I wrote this after a therapy session about anxious attachment. We tracked the vocal at 2 a.m. to keep the hush.",
-        image: "assets/out of touch cover art.png",
+        image: "assets/let me stay cover art.png",
         audio: "audio/Let Me Stay (The Anxious Attachment).mp3",
         lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
         annotations: {}
@@ -538,7 +555,7 @@
         duration: "03:57",
         inspiration: "Fight-flight-freeze-fawn put through glitch pedals.",
         origin: "I pitched the chorus down an octave to mimic dissociation, then let the bridge crack back to my real voice.",
-        image: "assets/out of touch cover art.png",
+        image: "assets/wired this way cover art.png",
         audio: "audio/Wired This Way (The Fourth Trauma Response).mp3",
         lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
         annotations: {}
@@ -551,7 +568,7 @@
         duration: "01:58",
         inspiration: "Every creative way I justified the bare minimum.",
         origin: "We built the groove from calculator button clicks. The hook is me laughing at myself, then wincing.",
-        image: "assets/out of touch cover art.png",
+        image: "assets/girl math out of touch cover art.png",
         audio: "audio/Girl Math (The Inner Critic).mp3",
         lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
         annotations: {}
@@ -564,7 +581,7 @@
         duration: "03:16",
         inspiration: "Loving someone while bracing for the fall at the same time.",
         origin: "I sampled the hum of stage lights for the intro. It sounds like comfort and warning all at once.",
-        image: "assets/out of touch cover art.png",
+        image: "assets/safety net cover art.png",
         audio: "audio/Safety Net (The Disorganized Attachment).mp3",
         lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
         annotations: {}
@@ -577,7 +594,7 @@
         duration: "03:45",
         inspiration: "Color theory as emotional logic.",
         origin: "Yellow is the performance version of sadness. I painted the studio lights gold and sang until it felt bright.",
-        image: "assets/out of touch cover art.png",
+        image: "assets/sad girl syntax cover art.png",
         audio: "audio/Sad Girl Syntax (The Emotional Dissonance - yellow version).mp3",
         lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
         annotations: {}
@@ -590,7 +607,7 @@
         duration: "03:33",
         inspiration: "The quieter version of the same ache.",
         origin: "I removed every high-hat until the track felt like breathing underwater.",
-        image: "assets/out of touch cover art.png",
+        image: "assets/sad girl syntax cover art blue version.png",
         audio: "audio/Sad Girl Syntax (The Emotional Dissonance - blue version).mp3",
         lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
         annotations: {}
@@ -603,7 +620,7 @@
         duration: "02:59",
         inspiration: "Outrage that finally points outward.",
         origin: "We stacked 18 vocals shouting the word 'could' until it broke. Catharsis in surround sound.",
-        image: "assets/out of touch cover art.png",
+        image: "assets/you could've cover art.png",
         audio: "audio/You Could've (The Externally Oriented Motivation).mp3",
         lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
         annotations: {}
@@ -616,7 +633,7 @@
         duration: "03:21",
         inspiration: "Every excuse I made for burning out.",
         origin: "The verses came from my to-do list. I left the typos in the background vocals on purpose.",
-        image: "assets/out of touch cover art.png",
+        image: "assets/doesnt count cover art.png",
         audio: "audio/Doesn't Count (If It's For Me) (The Externally Oriented Motivation).mp3",
         lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
         annotations: {}
@@ -629,7 +646,7 @@
         duration: "03:25",
         inspiration: "That rare moment where I stopped apologising.",
         origin: "We let the bridge drop to spoken word, then built it back up with handclaps from everyone in the room.",
-        image: "assets/out of touch cover art.png",
+        image: "assets/done with me cover art.png",
         audio: "audio/Done With Me (The Agency).mp3",
         lyrics: [ [ { text: "Placeholder lyrics coming soon." } ] ],
         annotations: {}
