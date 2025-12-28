@@ -250,10 +250,10 @@
 
       <div class="nowplaying" role="group" aria-label="Current obsession">
         <span class="badge">Current obsession</span>
-        <div class="thumb" aria-hidden="true"></div>
+        <div class="thumb" aria-hidden="true" data-current-thumb></div>
         <div class="meta">
-          <span class="title">Gravity Looks Good on You</span>
-          <span class="sub">Jake Mitchell &mdash; 03:21</span>
+          <span class="title" data-current-title>Gravity Looks Good on You</span>
+          <span class="sub" data-current-sub>Jake Mitchell &mdash; 03:21</span>
         </div>
         <button class="play" id="playBtn" aria-pressed="false" aria-label="Play or pause">Play</button>
         <audio id="player" preload="none" src="audio/Gravity Looks Good on You.mp3"></audio>
@@ -267,6 +267,88 @@
       </div>
     </section>
   </main>
+
+  <script>
+    (function(){
+      const endpoint = 'https://little-lotte-plays.lotte-vandersijpt.workers.dev/';
+      const defaultSong = {
+        title: 'Gravity Looks Good on You',
+        album: 'Jake Mitchell',
+        duration: '03:21',
+        art: 'assets/Gravity Looks Good On You cover art.jpg',
+        audio: 'audio/Gravity Looks Good on You.mp3'
+      };
+      const songMeta = {
+        'Split The Blame': { album: 'Out of Touch', duration: '03:57', art: 'assets/split the blame cover art.png', audio: 'audio/Split the Blame (The Cognitive Dissonance).mp3' },
+        'If/Then/Else': { album: 'Out of Touch', duration: '02:31', art: 'assets/if else then cover art.png' },
+        'Let Me Stay': { album: 'Out of Touch', duration: '03:52', art: 'assets/let me stay cover art.png' },
+        'Wired This Way': { album: 'Out of Touch', duration: '03:57', art: 'assets/wired this way cover art.png' },
+        'Girl Math': { album: 'Out of Touch', duration: '01:58', art: 'assets/girl math out of touch cover art.png' },
+        'Safety Net': { album: 'Out of Touch', duration: '03:16', art: 'assets/safety net cover art.png' },
+        'Sad Girl Syntax (The Emotional Dissonance - yellow version)': { album: 'Out of Touch', duration: '03:45', art: 'assets/sad girl syntax cover art.png' },
+        'Sad Girl Syntax (The Emotional Dissonance - blue version)': { album: 'Out of Touch', duration: '03:33', art: 'assets/sad girl syntax cover art blue version.png' },
+        "You Could've": { album: 'Out of Touch', duration: '02:59', art: "assets/you could've cover art.png" },
+        "Doesn't Count (If It's For Me)": { album: 'Out of Touch', duration: '03:21', art: 'assets/doesnt count cover art.png' },
+        'Done With Me': { album: 'Out of Touch', duration: '03:25', art: 'assets/done with me cover art.png' },
+        'A Hug, Not A Kiss': { album: 'Out of Touch', duration: '04:17', art: 'assets/a hug, not a kiss cover art.png' },
+        'Putting In The Pro': { album: 'Out of Touch', duration: '03:16', art: 'assets/putting the pro in cover art.png' },
+        'He Be Reckless (for Colin Shea)': { album: 'Not All Men', duration: '02:41', art: 'assets/not all men cover art.jpg' },
+        "If I Don't Say It (Duet With Colin pt. 1)": { album: 'Not All Men', duration: '03:43', art: 'assets/not all men cover art.jpg' },
+        "She's Always Almost Saying It (Duet With Colin pt. 2)": { album: 'Not All Men', duration: '02:01', art: 'assets/not all men cover art.jpg' },
+        "Let's Say It Happened (Colin's lullaby)": { album: 'Not All Men', duration: '04:15', art: 'assets/not all men cover art.jpg' },
+        'Gravity Looks Good On You': { album: 'Not All Men', duration: '03:21', art: 'assets/Gravity Looks Good On You cover art.jpg', audio: 'audio/Gravity Looks Good on You.mp3' },
+        'Gravity Looks Good On You (for Mitchell and his space cadet)': { album: 'Not All Men', duration: '03:21', art: 'assets/Gravity Looks Good On You cover art.jpg', audio: 'audio/Gravity Looks Good on You.mp3' },
+        'Time Moves On Faster Than I': { album: 'Not All Men', duration: '03:39', art: 'assets/Time moves faster than I cover art.png' },
+        'Like A Habit': { album: 'Not All Men', duration: '04:00', art: 'assets/like a habit cover art.png' },
+        'Pleased to Meet You (Alexandra)': { album: 'Not All Men', duration: '03:44', art: 'assets/Pleased to meet you (Alexandra).png' },
+        "I Don't Get To Burn": { album: 'Not All Men', duration: '04:15', art: "assets/I don't get to burn cards cover art.png" },
+        'Gag Reflex': { album: 'Not All Men', duration: '04:17', art: 'assets/gag reflex cover art.png' },
+        'a mad sad song': { album: 'Not All Men', duration: '05:15', art: 'assets/a mad sad song cover art.png' },
+        'Should I have been your friend?': { album: 'Not All Men', duration: '04:18', art: 'assets/should i have been your friend cover art.png' },
+        "Second Star Don't Be Right (villain!Pan)": { album: 'Not All Men', duration: '04:00', art: "assets/Second Star Don't Be Right cover art.jpg" }
+      };
+
+      function pickTopSong(counts){
+        const entries = Object.entries(counts || {}).filter(([, count]) => Number(count) > 0);
+        if(!entries.length){ return null; }
+        entries.sort((a,b) => Number(b[1]) - Number(a[1]));
+        const [title, count] = entries[0];
+        return { title, count, meta: songMeta[title] || {} };
+      }
+
+      function updateNowPlaying(song){
+        const titleEl = document.querySelector('[data-current-title]');
+        const subEl = document.querySelector('[data-current-sub]');
+        const thumbEl = document.querySelector('[data-current-thumb]');
+        const audioEl = document.getElementById('player');
+        if(!titleEl || !subEl || !thumbEl || !audioEl){ return; }
+        titleEl.textContent = song?.title || defaultSong.title;
+        const album = song?.meta?.album || song?.album || defaultSong.album;
+        const duration = song?.meta?.duration || song?.duration || defaultSong.duration;
+        subEl.innerHTML = `${album} &mdash; ${duration}`;
+        const art = song?.meta?.art || song?.art || defaultSong.art;
+        thumbEl.style.backgroundImage = `url('${art}')`;
+        thumbEl.style.backgroundSize = 'cover';
+        thumbEl.style.backgroundPosition = 'center';
+        const audioSrc = song?.meta?.audio || song?.audio || defaultSong.audio;
+        if(audioSrc){ audioEl.src = audioSrc; }
+      }
+
+      async function loadTopSong(){
+        try{
+          const resp = await fetch(endpoint, { cache: 'no-store' });
+          if(!resp.ok){ updateNowPlaying(defaultSong); return; }
+          const data = await resp.json();
+          const top = pickTopSong(data.counts);
+          updateNowPlaying(top || defaultSong);
+        }catch(err){
+          updateNowPlaying(defaultSong);
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', loadTopSong);
+    })();
+  </script>
 
   <script>
     // Tiny play/pause logic - no libraries.
@@ -290,7 +372,4 @@
   </script>
 </body>
 </html>
-
-
-
 
