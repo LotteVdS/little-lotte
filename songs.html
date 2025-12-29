@@ -66,13 +66,52 @@
     }
     .nav__link:hover{color:var(--text)}
     .nav__link.is-active{color:var(--accent)}
-    .nav__actions{display:flex; gap:18px; align-items:center;}
-    .icon-btn{
-      border:0; background:none; color:var(--text); padding:6px;
-      display:grid; place-items:center; cursor:pointer;
+    .nav__actions{display:none; gap:18px; align-items:center;}
+    .menu-toggle{
+      display:none;
+      align-items:center;
+      gap:10px;
+      border:0;
+      background:var(--btn-bg);
+      color:var(--text);
+      padding:9px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
     }
-    .icon-btn:hover{color:var(--accent)}
-    .icon-btn svg{width:18px; height:18px; fill:currentColor}
+    .menu-toggle__icon{display:grid; gap:4px;}
+    .menu-toggle__icon span{
+      display:block; width:20px; height:2px; background:currentColor; border-radius:999px;
+      transition:transform .2s ease, opacity .2s ease;
+    }
+    .menu-toggle.is-open .menu-toggle__icon span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+    .menu-toggle.is-open .menu-toggle__icon span:nth-child(2){opacity:0;}
+    .menu-toggle.is-open .menu-toggle__icon span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+    .mobile-nav{
+      position:absolute;
+      top:100%; left:0; right:0;
+      background:#000;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      padding:14px 20px 18px;
+      display:flex; flex-direction:column; gap:10px;
+      box-shadow:0 18px 32px rgba(0,0,0,.35);
+    }
+    .mobile-nav ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px;}
+    .mobile-nav a{
+      color:var(--text);
+      text-decoration:none;
+      font-weight:700;
+      letter-spacing:.06em;
+      padding:10px 12px;
+      border-radius:10px;
+      background:rgba(255,255,255,.06);
+    }
+    .mobile-nav a:hover{background:rgba(255,255,255,.14);}
+    @media (min-width:761px){
+      .mobile-nav{display:none !important;}
+    }
 
     main{
       padding:140px var(--edge) 80px;
@@ -274,9 +313,11 @@
     }
     @media (max-width:760px){.player-bar{bottom:16px; width:calc(100% - 32px); padding:16px 18px;}
       nav{display:none;}
+      .nav__actions{display:flex;}
+      .menu-toggle{display:flex;}
       .header__inner{padding:18px 20px;}
-      .album__header{flex-direction:column; align-items:flex-start;}
-      .album__cover{width:100%; height:180px;}
+      .album__header{flex-direction:column; align-items:flex-start; gap:14px;}
+      .album__cover{flex:0 0 auto; width:clamp(160px, 62vw, 240px); height:auto; aspect-ratio:1; align-self:flex-start;}
     }
   </style>
 </head>
@@ -292,11 +333,23 @@
         </ul>
       </nav>
       <div class="nav__actions">
-        <button class="icon-btn" type="button" aria-label="Search">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.71.71l.27.28v.79l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobileNav" data-menu-toggle>
+          <span class="menu-toggle__icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span class="menu-toggle__label">Menu</span>
         </button>
       </div>
     </div>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" hidden>
+      <ul>
+        <li><a class="nav__link" href="index.html">Home</a></li>
+        <li><a class="nav__link" href="about.html">About</a></li>
+        <li><a class="nav__link is-active" href="songs.html">Songs</a></li>
+      </ul>
+    </nav>
   </header>
 
   <main>
@@ -2866,6 +2919,13 @@ lyrics: [
 
 
 
+    const headerEl = document.querySelector('header');
+    const mobileNav = document.getElementById('mobileNav');
+    const menuToggle = document.querySelector('[data-menu-toggle]');
+    const mobileNavLinks = mobileNav ? Array.from(mobileNav.querySelectorAll('a')) : [];
+    const mobileMenuQuery = window.matchMedia('(max-width: 760px)');
+    const stackedLayoutQuery = window.matchMedia('(max-width: 900px)');
+
     const layout = document.getElementById('songsLayout');
     const detailPane = document.querySelector('.songs__detail');
     const annotationPane = document.querySelector('.songs__annotations');
@@ -2886,6 +2946,44 @@ lyrics: [
 
     const playCountEndpoint = 'https://little-lotte-plays.lotte-vandersijpt.workers.dev/';
     const playCounts = {};
+
+    function closeMobileMenu(){
+      if(!mobileNav || !menuToggle){
+        return;
+      }
+      mobileNav.hidden = true;
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.classList.remove('is-open');
+    }
+
+    function toggleMobileMenu(){
+      if(!mobileNav || !menuToggle){
+        return;
+      }
+      const isOpen = !mobileNav.hidden;
+      if(isOpen){
+        closeMobileMenu();
+      } else {
+        mobileNav.hidden = false;
+        menuToggle.setAttribute('aria-expanded', 'true');
+        menuToggle.classList.add('is-open');
+      }
+    }
+
+    if(menuToggle && mobileNav){
+      menuToggle.addEventListener('click', toggleMobileMenu);
+      mobileNavLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
+      const handleMenuBreakpoint = event => {
+        if(!event.matches){
+          closeMobileMenu();
+        }
+      };
+      if(typeof mobileMenuQuery.addEventListener === 'function'){
+        mobileMenuQuery.addEventListener('change', handleMenuBreakpoint);
+      } else if(typeof mobileMenuQuery.addListener === 'function'){
+        mobileMenuQuery.addListener(handleMenuBreakpoint);
+      }
+    }
 
     function trackEvent(name, params = {}){
       if(typeof gtag === 'function'){
@@ -2975,6 +3073,15 @@ lyrics: [
       return Number(duration);
     }
 
+    function scrollPanelIntoView(target){
+      if(!target || target.hidden || !stackedLayoutQuery.matches){
+        return;
+      }
+      const headerOffset = (headerEl?.offsetHeight || 0) + 12;
+      const targetTop = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top: Math.max(targetTop, 0), behavior: 'smooth' });
+    }
+
     function updatePlayerMeta(song){
       if(!song){
         return;
@@ -3038,6 +3145,7 @@ lyrics: [
       layout.dataset.view = 'annotation';
       playbackState.annotationId = annotationId;
       annotationPane.scrollTop = 0;
+      scrollPanelIntoView(annotationPane);
     }
 
     function getSong(songId){
@@ -3083,6 +3191,7 @@ lyrics: [
       annotationPane.hidden = true;
       layout.dataset.view = 'song';
       detailPane.hidden = false;
+      scrollPanelIntoView(detailPane);
 
       if(options.shouldPlay){
         startPlayback(songId);
